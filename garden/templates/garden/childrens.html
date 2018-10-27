@@ -1,0 +1,107 @@
+{% extends 'garden/main.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/childrens.css"%}">
+{% endblock css %}
+{% block content %}
+    <div class="content">
+        <div class="children-wrapper">
+            <div class="command-line">
+                <ul>
+                    <li class="list-item item-control">
+                        <div class="items-content">
+                            <div class="list-item-content">
+                                <i class="fa fa-search"></i>
+                                <div class="input-wrapper">
+                                    <span>Пошук: </span>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="list-item-content lic-button">
+                                <span> Знайти </span>
+                            </div>
+                            <div class="list-item-content lic-button">
+                                <span> Відмінити </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <a href="#">
+                            <i class="fa fa-list"></i>
+                            Додати нову дитину
+                        </a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#">
+                            <i class="fa fa-list"></i>
+                            Друк
+                        </a>
+                        <ul class="cm-submenu">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    Друк з поточними нашалаштуваннями
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    Друк
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    Друк
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="child-list">
+                <h3>Перелік елементів довідника "Діти"</h3>
+                <ul class="ul-child-list">
+                    {% for elem in children_with_parents %}
+                        <li>
+                            <div class="cl-img">
+                                <img src="{{ elem.child.image.url }}" alt="">
+                            </div>
+                            <div class="cl-name">
+                                <p><a href="child_detail.html"> {{ elem.child.fullname }}</a></p>
+                                <p>{{ elem.child.address }}</p>
+                            </div>
+                            <div class="cl-birth">
+                                <p>{{ elem.child.date_of_birth }}</p>
+                            </div>
+                            <div class="cl-parrents">
+                                <ul>
+                                    {% for parent in elem.parents %}
+                                        <li>
+                                            <p>{{ parent.fullname }}</p>
+                                            <p>Мати</p>
+                                            <p>{{ parent.phone }}</p>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="cl-date-in">
+                                <p>{{ elem.child.date_start }}</p>
+                            </div>
+                            <div class="cl-count">
+                                <div class="cl-weight">
+                                    <span>{{ elem.child.weight }}</span>
+                                </div>
+                                <div class="cl-height">
+                                    <span>{{ elem.child.growth }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+ {% endblock content %}

@@ -1,0 +1,15 @@
+//@import "_mixins/font-face";
+
+//+font-face("geometrica", "../fonts/GeometricaRegular", 400)
+//+font-face("geometrica", "../fonts/GeometricaLight", 300)
+//+font-face("geometrica", "../fonts/GeometricaMedium", 500)
+//+font-face("geometrica", "../fonts/GeometricaBold", 600)
+//+font-face("geometrica", "../fonts/GeometricaExtraBold", 800)
+
+//@include font-face('geometrica', "../fonts/GeometriaLight", 200);
+//@include font-face('geometrica', "../fonts/GeometriaRegular", 400);
+//@include font-face('geometrica', "../fonts/GeometriaMedium", 500);
+//@include font-face('geometrica', "../fonts/GeometriaBold", 600);
+//@include font-face('geometrica', "../fonts/GeometriaExtraBold", 700);
+
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=cyrillic');

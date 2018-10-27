@@ -1,0 +1,197 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/main.css"%}">
+    {% block css %}
+    {% endblock css %}
+    <title>Main</title>
+</head>
+<body>
+
+
+    <div class="wrapper">
+        <header class="main-header">
+            <div class="my-icon">
+                <i class="fa fa-globe"></i>
+                <p>Дошкільний навчальний заклад №20</p>
+            </div>
+            <div class="quick-links">
+                <div class="menu-hidden-wrapper">
+                   <a href="#" class="toggle-hidden-menu">
+                        <i class="fa fa-clipboard"></i>
+                        <span>Швидкий доступ</span>
+                    </a>
+                    <ul class="menu-hidden">
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Довідник дітей</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="menu-hidden-wrapper">
+                    <a href="#" class="toggle-hidden-menu">
+                        <i class="fa fa-gratipay"></i>
+                        <span>Список улюбленого</span>
+                    </a>
+                    <ul class="menu-hidden">
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Довідник дітей #2</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка @3</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="log-info">
+                <a href="#2" id="usi-toggle">
+                    <i class="fa fa-user"></i>
+                    <span>Bunzuk1991</span>
+                </a>
+                <div class="user-info usi-close">
+                    <div class="user-info-content">
+                        <div class="user-icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="user-text">
+                            <span>Bunzuk1991</span>
+                        </div>
+                        <div class="border"></div>
+                    </div>
+                    <div class="user-info-status">
+                            <span class="span-bold">Статус: </span>
+                            <span>Батьки</span>
+                    </div>
+                    <div class="user-info-footer">
+                        <a href="#">Вийти</a>
+                        <a href="#">Профіль</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="aside-content-wrapper">
+            <div class="side-bar-wrapper">
+               <aside class="main-sidebar">
+                    <div class="aside-content">
+                        <ul class="menu-left">
+                            <li class="menu-left-item">
+                                <a href="main.html">
+                                    <i class="fa fa-dashboard"></i>
+                                    <div class="text-title">
+                                        <i>Панель інструментів</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="childrens.html">
+                                    <i class="fa fa-id-card-o"></i>
+                                    <div class="text-title">
+                                        <i>Діти</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="child_in_days.html">
+                                    <i class="fa fa-calendar"></i>
+                                    <div class="text-title">
+                                        <i>Відвідування</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-credit-card"></i>
+                                    <div class="text-title">
+                                        <i>Оплати/Заборгованість</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-newspaper-o"></i>
+                                    <div class="text-title">
+                                        <i>Події/Новини</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-bar-chart"></i>
+                                    <div class="text-title">
+                                        <i>Звіти</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-cogs"></i>
+                                    <div class="text-title">
+                                        <i>Налаштування</i>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <div class="content-wrapper">
+                <div class="content">
+                    {% block content %}
+                        <h3>Стартова сторінка</h3>
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script src="{% static "js/jquery-main.js"%}"></script>
+</body>
+</html>

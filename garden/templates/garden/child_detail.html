@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="uk_ua">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/childrens.css">
+    <link rel="stylesheet" href="css/child-detail.css">
+    <title>Main</title>
+</head>
+<body>
+
+    <div class="modal" data-target="change-parent">
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="inp-group">
+
+                    <form id="form-parent">
+                        <div class="form-group">
+                            <div class="close-modal">
+                                <i class="fa fa-close"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ПІБ</label>
+                            <input name="name" type="text" value="" placeholder="Прізвище, ім’я, по-батькові">
+                        </div>
+                        <div class="form-group">
+                            <label>Дата народження</label>
+                            <input name="date-of-birth" type="date" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input name="phone" type="phone" value="" placeholder="Телефон">
+                        </div>
+                        <div class="form-group hidden">
+                            <input name="form-id" type="text" value="">
+                        </div>
+                        <div class="form-group hidden">
+                            <span id="operation-type" data-type="0"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Відношення</label>
+                            <ul class="select" data-value="">
+                                <div class="select-value">Оберіть відношення</div>
+                                <div class="select-item-wrapper">
+                                    <li class="select-item" value="father">Батько</li>
+                                    <li class="select-item" value="mother">Мати</li>
+                                    <li class="select-item" value="grandmother">Бабуся</li>
+                                    <li class="select-item" value="grandfather">Дідусь</li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label>Місце роботи</label>
+                            <textarea name="work" placeholder="введіть місце роботи">nfkdsnfsdfsdnfdsfkdsf</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Посада</label>
+                            <input name="position" type="text" value="" placeholder="Назва посади">
+                        </div>
+                        <div class="form-group">
+                            <label>Адреса</label>
+                            <textarea name="address" placeholder="введіть свою адресу"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Записати" id="modal-parent-save">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <header class="main-header">
+            <div class="my-icon">
+                <i class="fa fa-globe"></i>
+                <p>Дошкільний навчальний заклад №20</p>
+            </div>
+            <div class="quick-links">
+                <div class="menu-hidden-wrapper">
+                   <a href="#" class="toggle-hidden-menu">
+                        <i class="fa fa-clipboard"></i>
+                        <span>Швидкий доступ</span>
+                    </a>
+                    <ul class="menu-hidden">
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Довідник дітей</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка</p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="menu-hidden-wrapper">
+                    <a href="#" class="toggle-hidden-menu">
+                        <i class="fa fa-gratipay"></i>
+                        <span>Список улюбленого</span>
+                    </a>
+                    <ul class="menu-hidden">
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Довідник дітей #2</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-th-list"></i>
+                            <p>Відвідування садочка @3</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="log-info">
+                <a href="#2" id="usi-toggle">
+                    <i class="fa fa-user"></i>
+                    <span>Bunzuk1991</span>
+                </a>
+                <div class="user-info usi-close">
+                    <div class="user-info-content">
+                        <div class="user-icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="user-text">
+                            <span>Bunzuk1991</span>
+                        </div>
+                        <div class="border"></div>
+                    </div>
+                    <div class="user-info-status">
+                            <span class="span-bold">Статус: </span>
+                            <span>Батьки</span>
+                    </div>
+                    <div class="user-info-footer">
+                        <a href="#">Вийти</a>
+                        <a href="#">Профіль</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="aside-content-wrapper">
+            <div class="side-bar-wrapper">
+               <aside class="main-sidebar">
+                    <div class="aside-content">
+                        <ul class="menu-left">
+                            <li class="menu-left-item">
+                                <a href="main.html">
+                                    <i class="fa fa-dashboard"></i>
+                                    <div class="text-title">
+                                        <i>Панель інструментів</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="childrens.html">
+                                    <i class="fa fa-id-card-o"></i>
+                                    <div class="text-title">
+                                        <i>Діти</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="child_in_days.html">
+                                    <i class="fa fa-calendar"></i>
+                                    <div class="text-title">
+                                        <i>Відвідування</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-credit-card"></i>
+                                    <div class="text-title">
+                                        <i>Оплати/Заборгованість</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-newspaper-o"></i>
+                                    <div class="text-title">
+                                        <i>Події/Новини</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-bar-chart"></i>
+                                    <div class="text-title">
+                                        <i>Звіти</i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-left-item">
+                                <a href="#">
+                                    <i class="fa fa-cogs"></i>
+                                    <div class="text-title">
+                                        <i>Налаштування</i>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <div class="content-wrapper">
+                <div class="content">
+
+                    <div class="children-wrapper">
+                        <div class="command-line">
+                            <ul>
+                                <li class="list-item item-control">
+                                    <div class="items-content">
+                                        <div class="list-item-content">
+                                            <i class="fa fa-search"></i>
+                                            <div class="input-wrapper">
+                                                <span>Пошук: </span>
+                                                <input type="text">
+                                            </div>
+                                        </div>
+                                        <div class="list-item-content lic-button">
+                                            <span> Знайти </span>
+                                        </div>
+                                        <div class="list-item-content lic-button">
+                                            <span> Відмінити </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-item">
+                                    <a href="#">
+                                        <i class="fa fa-list"></i>
+                                        Друк
+                                    </a>
+                                    <ul class="cm-submenu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-circle-o"></i>
+                                                Друк з поточними нашалаштуваннями
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-circle-o"></i>
+                                                Друк
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-circle-o"></i>
+                                                Друк
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="child-details">
+                            <h3>Особиста інформація по Буняк Володимир Сергійович</h3>
+                            <div class="detail-content-wrapper">
+                                <div class="line-img-personal-info">
+                                    <div class="img-container">
+                                        <div class="img-wrapper">
+                                            <img src="img/boy.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="personal-info-container">
+                                        <div class="pic-name">
+                                            <div class="input-group">
+                                                <span class="label-wrp label-req" data-img="\f000">ПІБ</span>
+                                                <input class="input-wrp" name="name" type="text" placeholder="Прізвище, ім’я та по-батькові" value="Буняк Володимир Сергійович">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="label-wrp label-req">Дата народження</span>
+                                                <input class="input-wrp" name="date-of-birth" type="date" value="07/08/2013">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="label-wrp label-req">Ріст (см.)</span>
+                                                <input class="input-wrp" name="height" type="number" min="1" max="300" value="121">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="label-wrp label-req">Вага (кг.)</span>
+                                                <input class="input-wrp" name="weight" type="number" min="1" max="300" value="21">
+                                            </div>
+                                            <div class="pic-commands">
+                                                <div class="button-wrapper">
+                                                    <label for="add-photo">Додати фотографію</label>
+                                                    <input type="file" id="add-photo">
+                                                </div>
+                                                <div class="button-wrapper">
+                                                    <a href="#" id="add-parent">Додати батьків</a>
+                                                </div>
+                                                <div class="button-wrapper">
+                                                    <a href="#" id="save-child">Записати та закрити</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line-parents">
+                                    <div class="tabs-titles">
+                                        <ul>
+                                            <li class="active-tab">Батьки</li>
+                                            <li>Відвідування</li>
+                                            <li>Інші</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tabs-content">
+                                        <div class="tab active-tab">
+                                            <ul class="list-parents">
+                                            <li class="lst-parent" id="lst-1" data-operation="" data-delete="">
+                                               <div class="lst-name">
+                                                   <p>Буняк Володимир Сергійович1</p>
+                                               </div>
+                                               <div class="lst-date-birth">
+                                                   <p>07.08.2018</p>
+                                               </div>
+                                               <div class="lst-type">
+                                                   <p>Батько</p>
+                                               </div>
+                                                <div class="lst-phone">
+                                                    <p>0969945947</p>
+                                                </div>
+                                               <div class="lst-work">
+                                                   <p>Україна, Тернопільська область, м.Тернопіль Приватне підприємство "Укрспецінформ"</p>
+                                               </div>
+                                               <div class="lst-posada">
+                                                   <p>Програміст</p>
+                                               </div>
+                                                <div class="lst-change">
+                                                    <p><a href="#" class="change-parent-info">Змінити</a></p>
+                                                    <p><a href="#" class="delete-parent-info">Вилучити</a></p>
+                                                </div>
+                                           </li>
+                                            <li class="lst-parent" id="lst-2" data-operation="" data-delete="">
+                                               <div class="lst-name">
+                                                   <p>Буняк Володимир Сергійович2</p>
+                                               </div>
+                                               <div class="lst-date-birth">
+                                                   <p>07.08.2018</p>
+                                               </div>
+                                               <div class="lst-type">
+                                                   <p>Батько</p>
+                                               </div>
+                                                <div class="lst-phone">
+                                                    <p>0969945947</p>
+                                                </div>
+                                               <div class="lst-work">
+                                                   <p>Україна, Тернопільська область, м.Тернопіль Приватне підприємство "Укрспецінформ"</p>
+                                               </div>
+                                               <div class="lst-posada">
+                                                   <p>Програміст</p>
+                                               </div>
+                                                <div class="lst-change">
+                                                    <p><a href="#" class="change-parent-info">Змінити</a></p>
+                                                    <p><a href="#" class="delete-parent-info">Вилучити</a></p>
+                                                </div>
+                                           </li>
+                                            <li class="lst-parent" id="lst-3" data-operation="" data-delete="">
+                                               <div class="lst-name">
+                                                   <p>Буняк Володимир Сергійович3</p>
+                                               </div>
+                                               <div class="lst-date-birth">
+                                                   <p>07.08.2018</p>
+                                               </div>
+                                               <div class="lst-type">
+                                                   <p>Батько</p>
+                                               </div>
+                                                <div class="lst-phone">
+                                                    <p>0969945947</p>
+                                                </div>
+                                               <div class="lst-work">
+                                                   <p>Україна, Тернопільська область, м.Тернопіль Приватне підприємство "Укрспецінформ"</p>
+                                               </div>
+                                               <div class="lst-posada">
+                                                   <p>Програміст</p>
+                                               </div>
+                                                <div class="lst-change">
+                                                    <p><a href="#" class="change-parent-info">Змінити</a></p>
+                                                    <p><a href="#" class="delete-parent-info">Вилучити</a></p>
+                                                </div>
+                                           </li>
+                                        </ul>
+                                        </div>
+                                        <div class="tab">
+                                            <h3>Друга вкладка</h3>
+                                        </div>
+                                        <div class="tab">
+                                            <h3>Третя вкладка</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script src="js/jquery-main.js"></script>
+</body>
+</html>

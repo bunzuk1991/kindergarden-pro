@@ -1,0 +1,217 @@
+.content .children-wrapper .command-line {
+  width: 100%;
+  height: 60px;
+  background: #ffffff;
+  box-shadow: 1px 3px 8px 0px #d2d2d2;
+  border: 1px solid #d2d2d2; }
+  .content .children-wrapper .command-line ul {
+    display: flex;
+    padding-top: 7px; }
+    .content .children-wrapper .command-line ul li {
+      margin-right: 15px;
+      position: relative; }
+      .content .children-wrapper .command-line ul li:hover > .cm-submenu {
+        transition: 0.4s;
+        opacity: 1;
+        overflow: visible;
+        visibility: visible; }
+      .content .children-wrapper .command-line ul li:nth-child(1) {
+        margin-left: 15px; }
+      .content .children-wrapper .command-line ul li .items-content {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        height: 45px;
+        padding-right: 18px;
+        border-right: 3px solid #8e8e8e; }
+        .content .children-wrapper .command-line ul li .items-content .lic-button {
+          border: 2px solid #e8e8e8;
+          padding: 3px 20px 3px 20px !important;
+          margin-left: 10px;
+          border-radius: 8px;
+          background: #79799c;
+          color: #ffffff !important;
+          cursor: pointer; }
+        .content .children-wrapper .command-line ul li .items-content .list-item-content {
+          display: block;
+          padding: 7px 0 7px 40px;
+          color: #505050;
+          position: relative; }
+          .content .children-wrapper .command-line ul li .items-content .list-item-content i.fa {
+            position: absolute;
+            top: 12px;
+            left: 13px;
+            font-size: 18px; }
+          .content .children-wrapper .command-line ul li .items-content .list-item-content .input-wrapper span {
+            padding-right: 5px;
+            font-size: 16px; }
+          .content .children-wrapper .command-line ul li .items-content .list-item-content .input-wrapper input {
+            outline: none;
+            font-size: 16px; }
+      .content .children-wrapper .command-line ul li a {
+        display: block;
+        background: #ffffff;
+        padding: 10px 30px 10px 40px;
+        border: 2px solid #e8e8e8;
+        color: #505050; }
+        .content .children-wrapper .command-line ul li a:hover {
+          background: #d85088;
+          transition: 0.4s;
+          color: #fff; }
+        .content .children-wrapper .command-line ul li a i.fa {
+          position: absolute;
+          top: 15px;
+          left: 13px;
+          font-size: 18px; }
+  .content .children-wrapper .command-line .cm-submenu {
+    flex-direction: column;
+    position: absolute;
+    min-width: 150px;
+    padding-top: 0;
+    box-shadow: 1px 3px 8px 0px #d2d2d2;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden; }
+    .content .children-wrapper .command-line .cm-submenu li {
+      margin: 0; }
+      .content .children-wrapper .command-line .cm-submenu li a {
+        border: none;
+        border-bottom: 1px solid #e8e8e8;
+        border-left: 1px solid #e8e8e8;
+        border-right: 1px solid #e8e8e8; }
+        .content .children-wrapper .command-line .cm-submenu li a i.fa {
+          position: absolute;
+          top: 13px;
+          left: 13px;
+          font-size: 15px; }
+      .content .children-wrapper .command-line .cm-submenu li:nth-child(1) {
+        margin-left: 0; }
+.content .children-wrapper .child-list {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 1px 3px 8px 0px #d2d2d2;
+  border: 1px solid #d2d2d2;
+  box-sizing: border-box;
+  padding: 30px 20px; }
+  .content .children-wrapper .child-list h3 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+    color: #585858; }
+  .content .children-wrapper .child-list .ul-child-list {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between; }
+    .content .children-wrapper .child-list .ul-child-list li {
+      display: flex;
+      border: 1px solid #bababa99;
+      margin-bottom: 7px;
+      color: #4a4a4a;
+      border-top-left-radius: 48px;
+      width: 100%; }
+      .content .children-wrapper .child-list .ul-child-list li div {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 17px;
+        box-sizing: border-box; }
+      .content .children-wrapper .child-list .ul-child-list li .cl-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 8px;
+        padding-bottom: 8px; }
+        .content .children-wrapper .child-list .ul-child-list li .cl-img img {
+          width: 110px;
+          height: 100px;
+          box-shadow: 0 0 1px 4px #79799c;
+          border-radius: 50%; }
+      .content .children-wrapper .child-list .ul-child-list li .cl-name {
+        width: 30%; }
+        .content .children-wrapper .child-list .ul-child-list li .cl-name p:nth-child(1) {
+          font-weight: bold;
+          font-size: 17px;
+          color: #727272; }
+          .content .children-wrapper .child-list .ul-child-list li .cl-name p:nth-child(1) a {
+            color: #727272; }
+        .content .children-wrapper .child-list .ul-child-list li .cl-name p:nth-child(2) {
+          font-size: 16px;
+          margin: 0;
+          margin-top: 10px; }
+      .content .children-wrapper .child-list .ul-child-list li .cl-birth {
+        width: 7%;
+        border-left: 1px solid #e2e2e299;
+        text-align: center;
+        color: #b3733b; }
+      .content .children-wrapper .child-list .ul-child-list li .cl-parrents {
+        padding: 0;
+        width: 30%;
+        border-left: 1px solid #e2e2e299;
+        border-right: 1px solid #e2e2e299; }
+        .content .children-wrapper .child-list .ul-child-list li .cl-parrents ul {
+          display: flex;
+          flex-direction: column;
+          /* justify-content: space-evenly; */
+          margin: 0;
+          height: 100%; }
+          .content .children-wrapper .child-list .ul-child-list li .cl-parrents ul li:last-child {
+            border-bottom: none; }
+          .content .children-wrapper .child-list .ul-child-list li .cl-parrents ul li {
+            margin: 0;
+            border-radius: 0;
+            border: none;
+            box-sizing: border-box;
+            border-bottom: 1px solid #e2e2e299;
+            height: 50%; }
+            .content .children-wrapper .child-list .ul-child-list li .cl-parrents ul li p {
+              padding-right: 20px;
+              padding-left: 5px;
+              margin: 5px 0;
+              color: #797979; }
+            .content .children-wrapper .child-list .ul-child-list li .cl-parrents ul li p:nth-child(1) {
+              width: 206px;
+              font-size: 18px;
+              color: #797979; }
+            .content .children-wrapper .child-list .ul-child-list li .cl-parrents ul li p:nth-child(2) {
+              width: 50px;
+              font-size: 18px;
+              color: #838383; }
+            .content .children-wrapper .child-list .ul-child-list li .cl-parrents ul li p:nth-child(3) {
+              font-size: 18px;
+              font-style: italic;
+              color: #797979; }
+      .content .children-wrapper .child-list .ul-child-list li .cl-date-in {
+        text-align: center;
+        border-right: 1px solid #e2e2e299;
+        color: #0e864f; }
+      .content .children-wrapper .child-list .ul-child-list li .cl-count {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16%; }
+        .content .children-wrapper .child-list .ul-child-list li .cl-count .cl-weight, .content .children-wrapper .child-list .ul-child-list li .cl-count .cl-height {
+          background-color: #79799c;
+          color: white;
+          border-radius: 50%;
+          height: 60px;
+          width: 60px;
+          padding: 0;
+          box-shadow: 2px 3px 5px 1px #d8508833; }
+          .content .children-wrapper .child-list .ul-child-list li .cl-count .cl-weight span, .content .children-wrapper .child-list .ul-child-list li .cl-count .cl-height span {
+            height: 100%;
+            font-weight: bold;
+            width: 100%;
+            line-height: 60px;
+            text-align: center;
+            display: block; }
+        .content .children-wrapper .child-list .ul-child-list li .cl-count .cl-height {
+          margin-left: 10px; }
+        .content .children-wrapper .child-list .ul-child-list li .cl-count .cl-weight {
+          margin-right: 10px; }

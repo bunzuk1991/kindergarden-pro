@@ -1,0 +1,154 @@
+@charset "UTF-8";
+.content .checked-day-invite {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 1px 3px 8px 0px #d2d2d2;
+  border: 1px solid #d2d2d2;
+  box-sizing: border-box;
+  padding: 30px 20px; }
+  .content .checked-day-invite h3 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 0;
+    margin: 0 0 21px;
+    color: #585858; }
+  .content .checked-day-invite .count-in-out {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 20px; }
+    .content .checked-day-invite .count-in-out .count-in, .content .checked-day-invite .count-in-out .count-out {
+      margin-right: 20px; }
+      .content .checked-day-invite .count-in-out .count-in i.fa, .content .checked-day-invite .count-in-out .count-out i.fa {
+        position: relative;
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        font-size: 21px;
+        z-index: 1; }
+      .content .checked-day-invite .count-in-out .count-in i.fa:after, .content .checked-day-invite .count-in-out .count-out i.fa:after {
+        content: '';
+        display: block;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background: #000;
+        position: absolute;
+        color: #ffffff;
+        top: 0;
+        z-index: -1; }
+      .content .checked-day-invite .count-in-out .count-in span, .content .checked-day-invite .count-in-out .count-out span {
+        display: inline-block;
+        padding-left: 5px;
+        font-size: 18px;
+        font-weight: bold; }
+    .content .checked-day-invite .count-in-out .count-in i.fa:after {
+      background: #4c983e; }
+    .content .checked-day-invite .count-in-out .count-out i.fa:after {
+      background: #79799c; }
+  .content .checked-day-invite .cdi-days {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-around; }
+    .content .checked-day-invite .cdi-days p {
+      margin-top: 5px;
+      margin-bottom: 5px; }
+    .content .checked-day-invite .cdi-days .cdi-item {
+      display: flex;
+      border: 1px solid #e0e0e099;
+      margin-bottom: 7px;
+      color: #4a4a4a;
+      background: #ffffff;
+      align-items: center;
+      min-width: 440px; }
+      .content .checked-day-invite .cdi-days .cdi-item div {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 17px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        margin-top: 5px; }
+      .content .checked-day-invite .cdi-days .cdi-item .cdi-name {
+        width: 65%;
+        border-right: 1px solid #ececec;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #757575; }
+      .content .checked-day-invite .cdi-days .cdi-item .check-in-out {
+        height: 40px;
+        width: 35%; }
+        .content .checked-day-invite .cdi-days .cdi-item .check-in-out .check-box-in-out {
+          display: none; }
+        .content .checked-day-invite .cdi-days .cdi-item .check-in-out .switch {
+          display: block;
+          background: #79799c;
+          height: 100%;
+          width: 100%;
+          border: 1px solid #f2f2f2;
+          position: relative;
+          border-radius: 20px;
+          overflow: hidden;
+          transition: all .3s ease-in-out; }
+          .content .checked-day-invite .cdi-days .cdi-item .check-in-out .switch:active:before {
+            transition: all .3s ease-in-out;
+            width: 46px; }
+          .content .checked-day-invite .cdi-days .cdi-item .check-in-out .switch:before {
+            content: '';
+            width: 36px;
+            height: 36px;
+            left: 3px;
+            top: 2px;
+            background: #ffffff;
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            color: #ffffff;
+            z-index: 2;
+            transition: all .3s ease-in-out; }
+          .content .checked-day-invite .cdi-days .cdi-item .check-in-out .switch:after {
+            content: 'Відсутній';
+            width: calc(100% - 40px);
+            height: 100%;
+            left: 40px;
+            background: transparent;
+            display: block;
+            position: absolute;
+            color: #ffff;
+            /* z-index: -1; */
+            text-align: center;
+            line-height: 40px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all .3s ease-in-out; }
+        .content .checked-day-invite .cdi-days .cdi-item .check-in-out .check-box-in-out:checked + .switch {
+          transition: all .3s ease-in-out;
+          background: #4c983e; }
+        .content .checked-day-invite .cdi-days .cdi-item .check-in-out .check-box-in-out:checked + .switch:before {
+          background: #ffffff;
+          transition: all .3s ease-in-out;
+          left: 71.5%; }
+        .content .checked-day-invite .cdi-days .cdi-item .check-in-out .check-box-in-out:checked + .switch:after {
+          content: 'Присутній';
+          right: 40px;
+          left: 0;
+          font-weight: bold;
+          font-size: 14px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          transition: all .3s ease-in-out; }
