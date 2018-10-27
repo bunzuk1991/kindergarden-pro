@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from kindergarden.utils import uniqe_slug_generator, generate_file_name
+from django.urls import reverse, reverse_lazy
 
 
 class Organisation(models.Model):
@@ -62,6 +63,17 @@ class Children(models.Model):
     def get_absolute_image_url(self):
         return "%s%s" % ('', self.image.url)
 
+    def get_absolute_url(self):
+        return reverse('child-detail', kwargs={'slug': self.slug})
+
+class Relation(models.Model):
+    name = models.CharField(max_length=120)
+    active = models.BooleanField(default=True)
+    slug = models.SlugField(default='', blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Parent(models.Model):
     child = models.ForeignKey(Children, on_delete=models.CASCADE)
@@ -72,6 +84,7 @@ class Parent(models.Model):
     work = models.CharField(max_length=250, default='')
     workplace = models.CharField(max_length=90, default='')
     with_child = models.BooleanField(default=True)
+    relation = models.ForeignKey(Relation, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return '%s(%s)' % (self.fullname, self.child.fullname)
@@ -99,3 +112,4 @@ pre_save.connect(slug_save, sender=GardenGroup)
 pre_save.connect(GroupNameCreate, sender=Group)
 pre_save.connect(slug_save, sender=Group)
 pre_save.connect(slug_save, sender=Children)
+pre_save.connect(slug_save, sender=Relation)

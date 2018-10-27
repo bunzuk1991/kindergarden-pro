@@ -17,4 +17,5 @@ class ChildrenAdmin(admin.ModelAdmin):
 admin.site.register(Organisation)
 admin.site.register(GardenGroup)
 admin.site.register(Group)
+admin.site.register(Relation)
 admin.site.register(Children, ChildrenAdmin)

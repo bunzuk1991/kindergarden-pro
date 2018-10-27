@@ -10,5 +10,15 @@ class ChildrenListView(UniversalMixins, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ChildrenListView, self).add_childrens_with_parents(context=None, **kwargs)
-        print(context)
+        return context
+
+
+class ChildDetail(DetailView):
+    model = Children
+    template_name = 'garden/child_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ChildDetail, self).get_context_data(**kwargs)
+        context['child'] = self.get_object()
+        context['parents'] = self.get_object().parent_set.all()
         return context
