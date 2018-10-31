@@ -51,7 +51,8 @@
           $year = $("<select class='birth-year' name='birth[year]'></select>");
 
       if (settings["wrapper"]) {
-        $fieldset = $("." + settings["wrapper"])
+        $fieldset = $("." + settings["wrapper"]);
+        $fieldset.empty();
       }
 
       if (settings["legend"]) { $("<legend>" + settings["legend"] + "</legend>").appendTo($fieldset); }

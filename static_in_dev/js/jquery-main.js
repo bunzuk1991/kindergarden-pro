@@ -61,10 +61,16 @@ function clearForm() {
 
 function convertDate(textDate) {
     let text = "" + textDate;
-    let date = new Date(text.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+    let dd = text.indexOf(".");
+    let date_converted;
+    if (dd !== -1) {
+        date_converted = new Date(text.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+    } else {
+        date_converted = new Date(text);
+    }
 
-    return date;
-};
+    return date_converted;
+}
 
 function returnParentHtml(id, name, date_of_birth, type, phone, work, posada, newitem){
 
@@ -235,8 +241,9 @@ $( document ).ready(function() {
 
         form.find('input[name="name"]').attr('value', fullname);
         form.find('input[name="name"]').val(fullname);
-        form.find('input[name="date-of-birth"]').attr('value', formatDate(date_from_p));
-        form.find('input[name="date-of-birth"]').val(formatDate(date_from_p));
+        form.find('#birthdate').attr('value', formatDate(date_from_p));
+        form.find('#birthdate').val(formatDate(date_from_p));
+        $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper", "defaultDate": formatDate(date_from_p)});
         form.find('input[name="phone"]').attr('value', phone);
         form.find('input[name="phone"]').val(phone);
         // form.find('.select-value').text(type);
