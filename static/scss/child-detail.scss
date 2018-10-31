@@ -514,49 +514,96 @@
               border: 1px solid #ececec;
               margin-bottom: 3px;
 
-              div {
-                padding: 2px 4px;
-                text-align: center;
-                font-size: 16px;
+              .field-container {
+
+              &.hidden {
+                display: none;
               }
+
+                div  {
+                  //padding: 2px 4px;
+                  text-align: center;
+                  font-size: 16px;
+                  box-sizing: border-box;
+                }
+
+                .top-line {
+                  width: 100%;
+                }
+
+                .bottom-line {
+                  width: 100%;
+                  display: flex;
+                  align-items: center;
+                  border-top: 1px solid #ececec;
+                }
+              }
+
+              .field-container:nth-child(1){
+                width: 25%;
+                border-right: 1px solid #ececec;
+              }
+              .field-container:nth-child(2){
+                width: 20%;
+                border-right: 1px solid #ececec;
+              }
+              .field-container:nth-child(3){
+                width: 40%;
+                border-right: 1px solid #ececec;
+              }
+              .field-container:nth-child(5){
+                width: 15%;
+              }
+
+              input, textarea {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                resize: none;
+                outline: none;
+                padding: 2px 5px;
+                margin: 0;
+                box-sizing: border-box;
+                display: block;
+                border: none;
+                text-align: center;
+              }
+
+              input {
+                padding: 9px 5px;
+              }
+
+              textarea {
+              }
+
+
 
               .lst-name {
-                width: 26%;
-                font-weight: bold;
-                text-align: left;
                 color: #5a5a5a;
 
-                p {
-                  padding-left: 4px;
-                }
               }
               .lst-date-birth {
-                width: 8%;
-                border-left: 1px solid #ececec;
-                border-right: 1px solid #ececec;
+                 color: #5a5a5a;
+                width: 55%;
               }
               .lst-type {
-                width: 8%;
-                border-right: 1px solid #ececec;
+                 color: #5a5a5a;
               }
               .lst-phone {
-                width: 8%;
-                border-right: 1px solid #ececec;
+                color: #5a5a5a;
+                width: 45%;
               }
               .lst-work {
-                width: 30%;
-                border-right: 1px solid #ececec;
-
-                p {
-                  font-style: italic;
-                }
+                 color: #5a5a5a;
+                 height: 100%;
               }
               .lst-posada {
-                width: 13%;
-                border-right: 1px solid #ececec;
+                color: #5a5a5a;
+                width: 100%;
               }
               .lst-change {
-                width: 16%;
+                width: 80%;
+                margin: 8px auto;
 
                 a {
                   background: #79799c;
@@ -565,6 +612,7 @@
                   border-radius: 6px;
                   display: block;
                   position: relative;
+                  margin-bottom: 5px;
 
                   &.change-parent-info {
 

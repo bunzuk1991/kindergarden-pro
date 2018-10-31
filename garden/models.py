@@ -49,7 +49,7 @@ class Children(models.Model):
     date_of_birth = models.DateField(auto_now=False)
     growth = models.PositiveIntegerField(default=0)
     weight = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    image = models.ImageField(upload_to=generate_file_name)
+    image = models.ImageField(upload_to=generate_file_name, default="no-image.png")
     slug = models.SlugField(default='', blank=True)
     active = models.BooleanField(default=True)
     date_start = models.DateField(auto_now=False)

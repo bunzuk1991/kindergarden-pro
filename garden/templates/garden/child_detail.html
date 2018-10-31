@@ -1,7 +1,6 @@
 {% extends 'garden/main.html' %}
 {% load static %}
 
-
 {% block css %}
     <link rel="stylesheet" href="{% static "css/childrens.css"%}">
     <link rel="stylesheet" href="{% static "css/child-detail.css"%}">
@@ -9,208 +8,256 @@
 
 {% block modal %}
     <div class="modal" data-target="change-parent">
-    <div class="modal-wrapper">
-        <div class="modal-content">
-            <div class="inp-group">
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="inp-group">
 
-                <form id="form-parent">
-                    <div class="form-group">
-                        <div class="close-modal">
-                            <i class="fa fa-close"></i>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>ПІБ</label>
-                        <input name="name" type="text" value="" placeholder="Прізвище, ім’я, по-батькові">
-                    </div>
-                    <div class="form-group">
-                        <label>Дата народження</label>
-                        <input name="date-of-birth" type="date" value="">
-                    </div>
-                    <div class="form-group">
-                        <label>Телефон</label>
-                        <input name="phone" type="phone" value="" placeholder="Телефон">
-                    </div>
-                    <div class="form-group hidden">
-                        <input name="form-id" type="text" value="">
-                    </div>
-                    <div class="form-group hidden">
-                        <span id="operation-type" data-type="0"></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Відношення</label>
-                        <ul class="select" data-value="">
-                            <div class="select-value">Оберіть відношення</div>
-                            <div class="select-item-wrapper">
-                                <li class="select-item" value="father">Батько</li>
-                                <li class="select-item" value="mother">Мати</li>
-                                <li class="select-item" value="grandmother">Бабуся</li>
-                                <li class="select-item" value="grandfather">Дідусь</li>
+                    <form id="form-parent">
+                        <div class="form-group">
+                            <div class="close-modal">
+                                <i class="fa fa-close"></i>
                             </div>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <label>Місце роботи</label>
-                        <textarea name="work" placeholder="введіть місце роботи">nfkdsnfsdfsdnfdsfkdsf</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Посада</label>
-                        <input name="position" type="text" value="" placeholder="Назва посади">
-                    </div>
-                    <div class="form-group">
-                        <label>Адреса</label>
-                        <textarea name="address" placeholder="введіть свою адресу"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Записати" id="modal-parent-save">
-                    </div>
-                </form>
+                        </div>
+                        <div class="form-group">
+                            <label>ПІБ</label>
+                            <input name="name" type="text" value="" placeholder="Прізвище, ім’я, по-батькові">
+                        </div>
+                        <div class="form-group">
+                            <label>Дата народження</label>
+{#                            <input name="date-of-birth" type="date" value="">#}
+                            <div class="birth-wrapper">
 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input name="phone" type="phone" value="" placeholder="Телефон">
+                        </div>
+                        <div class="form-group hidden">
+                            <input name="form-id" type="text" value="">
+                        </div>
+                        <div class="form-group hidden">
+                            <span id="operation-type" data-type="0"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Відношення</label>
+                            <ul class="select" data-value="">
+                                <div class="select-value">Оберіть відношення</div>
+                                <div class="select-item-wrapper">
+                                    <li class="select-item" value="father">Батько</li>
+                                    <li class="select-item" value="mother">Мати</li>
+                                    <li class="select-item" value="grandmother">Бабуся</li>
+                                    <li class="select-item" value="grandfather">Дідусь</li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label>Місце роботи</label>
+                            <textarea name="work" placeholder="введіть місце роботи">nfkdsnfsdfsdnfdsfkdsf</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Посада</label>
+                            <input name="position" type="text" value="" placeholder="Назва посади">
+                        </div>
+                        <div class="form-group">
+                            <label>Адреса</label>
+                            <textarea name="address" placeholder="введіть свою адресу"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Записати" id="modal-parent-save">
+                        </div>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock modal%}
-
+{% endblock modal %}
 
 {% block content %}
-<div class="children-wrapper">
-    <div class="command-line">
-        <ul>
-            <li class="list-item item-control">
-                <div class="items-content">
-                    <div class="list-item-content">
-                        <i class="fa fa-search"></i>
-                        <div class="input-wrapper">
-                            <span>Пошук: </span>
-                            <input type="text">
+    <div class="content">
+        <div class="children-wrapper">
+            <div class="command-line">
+                <ul>
+                    <li class="list-item item-control">
+                        <div class="items-content">
+                            <div class="list-item-content">
+                                <i class="fa fa-search"></i>
+                                <div class="input-wrapper">
+                                    <span>Пошук: </span>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="list-item-content lic-button">
+                                <span> Знайти </span>
+                            </div>
+                            <div class="list-item-content lic-button">
+                                <span> Відмінити </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="list-item-content lic-button">
-                        <span> Знайти </span>
-                    </div>
-                    <div class="list-item-content lic-button">
-                        <span> Відмінити </span>
-                    </div>
-                </div>
-            </li>
-            <li class="list-item">
-                <a href="#">
-                    <i class="fa fa-list"></i>
-                    Друк
-                </a>
-                <ul class="cm-submenu">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-circle-o"></i>
-                            Друк з поточними нашалаштуваннями
-                        </a>
                     </li>
-                    <li>
+                    <li class="list-item">
                         <a href="#">
-                            <i class="fa fa-circle-o"></i>
+                            <i class="fa fa-list"></i>
                             Друк
                         </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-circle-o"></i>
-                            Друк
-                        </a>
+                        <ul class="cm-submenu">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    Друк з поточними нашалаштуваннями
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    Друк
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i>
+                                    Друк
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="child-details">
-        <h3>Особиста інформація по Буняк Володимир Сергійович</h3>
-        <div class="detail-content-wrapper">
-            <div class="line-img-personal-info">
-                <div class="img-container">
-                    <div class="img-wrapper">
-                        <img src="{{ child.image.url }}" alt="">
-                    </div>
-                </div>
-                <div class="personal-info-container">
-                    <div class="pic-name">
-                        <div class="input-group">
-                            <span class="label-wrp label-req" data-img="\f000">ПІБ</span>
-                            <input class="input-wrp" name="name" type="text" placeholder="Прізвище, ім’я та по-батькові" value={{ child.fullname }}>
-                        </div>
-                        <div class="input-group">
-                            <span class="label-wrp label-req">Дата народження</span>
-                            <input class="input-wrp" name="date-of-birth" type="date" value="{{ child.date_of_birth|date:"Y-m-d" }}">
-                        </div>
-                        <div class="input-group">
-                            <span class="label-wrp label-req">Ріст (см.)</span>
-                            <input class="input-wrp" name="height" type="number" min="1" max="300" value="{{ child.growth }}">
-                        </div>
-                        <div class="input-group">
-                            <span class="label-wrp label-req">Вага (кг.)</span>
-                            <input class="input-wrp" name="weight" type="number" min="1" max="300" value="{{ child.weight }}">
-                        </div>
-                        <div class="pic-commands">
-                            <div class="button-wrapper">
-                                <label for="add-photo">Додати фотографію</label>
-                                <input type="file" id="add-photo">
-                            </div>
-                            <div class="button-wrapper">
-                                <a href="#" id="add-parent">Додати батьків</a>
-                            </div>
-                            <div class="button-wrapper">
-                                <a href="#" id="save-child">Записати та закрити</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="line-parents">
-                <div class="tabs-titles">
-                    <ul>
-                        <li class="active-tab">Батьки</li>
-                        <li>Відвідування</li>
-                        <li>Інші</li>
-                    </ul>
-                </div>
-                <div class="tabs-content">
-                    <div class="tab active-tab">
-                        <ul class="list-parents">
-                            <li class="lst-parent" id="lst-1" data-operation="" data-delete="">
-                           <div class="lst-name">
-                               <p>Буняк Володимир Сергійович1</p>
-                           </div>
-                           <div class="lst-date-birth">
-                               <p>07.08.2018</p>
-                           </div>
-                           <div class="lst-type">
-                               <p>Батько</p>
-                           </div>
-                            <div class="lst-phone">
-                                <p>0969945947</p>
+            <div class="child-details" id="child-slug" data-slug="{{ slug }}">
+                <h3>Особиста інформація по Буняк Володимир Сергійович</h3>
+                <div class="detail-content-wrapper">
+                    <div class="line-img-personal-info">
+                        <div class="img-container">
+                            <div class="img-wrapper">
+{#                                            <img src="img/boy.jpg" alt="">#}
+                                {% if elem.child.image %}
+                                    <img src="{{ form.image.url }}" alt="#">
+                                {% else %}
+                                    <img src="{% static 'img/no-image.png' %}" alt="#">
+                                {% endif %}
                             </div>
-                           <div class="lst-work">
-                               <p>Україна, Тернопільська область, м.Тернопіль Приватне підприємство "Укрспецінформ"</p>
-                           </div>
-                           <div class="lst-posada">
-                               <p>Програміст</p>
-                           </div>
-                            <div class="lst-change">
-                                <p><a href="#" class="change-parent-info">Змінити</a></p>
-                                <p><a href="#" class="delete-parent-info">Вилучити</a></p>
+                        </div>
+                        <div class="personal-info-container">
+                            <div class="pic-name">
+                                <div class="input-group">
+                                    <span class="label-wrp label-req" data-img="\f000">ПІБ</span>
+                                    {{ form.fullname }}
+                                </div>
+                                <div class="input-group">
+                                    <span class="label-wrp label-req">Дата народження</span>
+{#                                                <input class="input-wrp" name="date-of-birth" type="date" value="07/08/2013">#}
+                                    <div class="date-select-wrapper">
+                                        {{ form.date_of_birth }}
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="label-wrp label-req">Ріст (см.)</span>
+{#                                                <input class="input-wrp" name="height" type="number" min="1" max="300" value="121">#}
+                                    {{ form.growth }}
+                                </div>
+                                <div class="input-group">
+                                    <span class="label-wrp label-req">Вага (кг.)</span>
+{#                                                <input class="input-wrp" name="weight" type="number" min="1" max="300" value="21">#}
+                                    {{ form.weight }}
+                                </div>
+                                <div class="pic-commands">
+                                    <div class="button-wrapper">
+                                        <label for="id_image">Додати фотографію</label>
+{#                                        <input type="file" id="add-photo">#}
+                                        {{ form.image }}
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <a href="#" id="add-parent">Додати батьків</a>
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <a href="#" id="save-child">Записати та закрити</a>
+                                    </div>
+                                </div>
                             </div>
-                       </li>
-                        </ul>
+                        </div>
                     </div>
-                    <div class="tab">
-                        <h3>Друга вкладка</h3>
-                    </div>
-                    <div class="tab">
-                        <h3>Третя вкладка</h3>
+                    <div class="line-parents">
+                        <div class="tabs-titles">
+                            <ul>
+                                <li class="active-tab">Батьки</li>
+                                <li>Відвідування</li>
+                                <li>Інші</li>
+                            </ul>
+                        </div>
+                        <div class="tabs-content">
+                            <div class="tab active-tab">
+
+                                <ul class="list-parents">
+                                    {{ formset.management_form }}
+                                    {% for form_ in formset %}
+
+                                        <li class="lst-parent" id="lst-{{ forloop.counter0 }}" data-operation="" data-delete="">
+                                        <div class="field-container">
+                                            <div class="top-line">
+{#                                                <input type="text" name="parent_name" value="Буняк Володимир Сергійович" readonly>#}
+                                                {{ form_.fullname }}
+                                            </div>
+                                            <div class="bottom-line">
+                                                <div class="lst-date-birth">
+    {#                                                <input type="date" name="parent_date" value="2018-07-01" readonly>#}
+                                                    {{ form_.date_of_birth }}
+                                                </div>
+                                                <div class="lst-phone">
+        {#                                            <input type="text" name="parent_phone" value="0969945947" readonly>#}
+                                                    {{ form_.phone }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field-container">
+                                            <div class="top-line">
+                                                <div class="lst-type">
+{#                                                    <input type="text" name="parent_relation" value="Батько" readonly>#}
+                                                   {{ form_.relation }}
+                                                </div>
+                                            </div>
+                                            <div class="bottom-line">
+                                                <div class="lst-posada">
+{#                                                    <input type="text" name="parent_workplace" value="Програміст" readonly>#}
+                                                    {{ form_.workplace }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field-container">
+                                            <div class="lst-work">
+{#                                                <textarea name="parent_work" readonly>Україна, Тернопільська область, м.Тернопіль Приватне підприємство "Укрспецінформ"</textarea>#}
+                                                {{ form_.work }}
+                                            </div>
+                                        </div>
+                                        <div class="field-container hidden">
+                                            <div class="lst-address">
+{#                                                <textarea name="parent_work" readonly>Україна, Тернопільська область, м.Тернопіль Приватне підприємство "Укрспецінформ"</textarea>#}
+                                                {{ form_.address }}
+                                            </div>
+                                        </div>
+                                        <div class="field-container">
+                                            <div class="lst-change">
+                                                <a href="#" class="change-parent-info">Змінити</a>
+                                                <a href="#" class="delete-parent-info">Вилучити</a>
+                                                {{ form_.DELETE }}
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="tab">
+                                <h3>Друга вкладка</h3>
+                            </div>
+                            <div class="tab">
+                                <h3>Третя вкладка</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
-
     </div>
-</div>
-{% endblock content %}
+{% endblock %}
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiformset Demo</title>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div>
+        <h1>Add Recipe</h1>
+        <form action="." method="post">
+            {% csrf_token %}
+            <div>
+                {{ form.as_ul }}
+            </div>
+            <br>
+            <hr>
+            {{ formset.management_form }}
+
+            {% for form_ in formset %}
+                <br>
+                {{ form_.as_ul }}
+                <br>
+            {% endfor %}
+
+            <input type="submit" value="Add recipe" class="submit" />
+        </form>
+    </div>
+</body>
+</html>

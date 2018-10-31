@@ -131,6 +131,8 @@ $( document ).ready(function() {
     daysBar();
     tabsToggle();
 
+    $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper"});
+
 
     $('.select').on('click', function (e) {
         e.preventDefault();
@@ -187,7 +189,7 @@ $( document ).ready(function() {
         } else {
             let new_item = returnParentHtml(id, name, date_of_birth, type, phone, work, place, false);
             let elem = $("#" + id);
-            if (elem.attr('data-operation') == '') {
+            if (elem.attr('data-operation') === '') {
                 elem.attr('data-operation', 'change')
             }
             elem.children().remove();
@@ -214,32 +216,33 @@ $( document ).ready(function() {
     $('.list-parents').on('click', '.change-parent-info',  function (e) {
         e.preventDefault();
         let current_element = $(this).closest('.lst-parent');
-        let row_set = current_element.find('div p');
+        let id_parent = current_element.attr('id');
+        let num_id = id_parent.replace(/lst-/g, "");
 
-        let name = row_set[0].innerText,
-            date_birth = row_set[1].innerText,
-            type = row_set[2].innerText,
-            phone = row_set[3].innerText,
-            work = row_set[4].innerText,
-            place = row_set[5].innerText,
-            id_parent = current_element.attr('id');
+        let fullname = current_element.find('#' + 'id_parent-' + num_id + '-fullname').val(),
+            date_of_birth = current_element.find('#' + 'id_parent-' + num_id + '-date_of_birth').val(),
+            relation = current_element.find('#' + 'id_parent-' + num_id + '-relation:selected').val(),
+            phone = current_element.find('#' + 'id_parent-' + num_id + '-phone').val(),
+            address = current_element.find('#' + 'id_parent-' + num_id + '-address').val(),
+            work = current_element.find('#' + 'id_parent-' + num_id + '-work').val(),
+            workplace = current_element.find('#' + 'id_parent-' + num_id + '-workplace').val();
 
 
         clearForm();
 
         let form = $('#form-parent');
-        let date_from_p = convertDate(date_birth);
+        let date_from_p = convertDate(date_of_birth);
 
-        form.find('input[name="name"]').attr('value', name);
-        form.find('input[name="name"]').val(name);
+        form.find('input[name="name"]').attr('value', fullname);
+        form.find('input[name="name"]').val(fullname);
         form.find('input[name="date-of-birth"]').attr('value', formatDate(date_from_p));
         form.find('input[name="date-of-birth"]').val(formatDate(date_from_p));
         form.find('input[name="phone"]').attr('value', phone);
         form.find('input[name="phone"]').val(phone);
-        form.find('.select-value').text(type);
+        // form.find('.select-value').text(type);
         form.find('textarea[name="work"]').val(work);
-        form.find('input[name="position"]').attr('value', place);
-        form.find('input[name="position"]').val(place);
+        form.find('input[name="position"]').attr('value', workplace);
+        form.find('input[name="position"]').val(workplace);
         form.find('input[name="form-id"]').attr('value', id_parent);
         form.find('input[name="form-id"]').val(id_parent);
         form.find('#operation-type').attr('data-type', '2');
@@ -305,6 +308,27 @@ $( document ).ready(function() {
 
         $(this).toggleClass('active-hidden-a');
         current.toggleClass("menu-hidden-open");
+    });
+
+
+    $('#save-child').on('click', function (e) {
+        e.preventDefault();
+        let child_slug = $('#child-slug').attr('data-slug');
+
+        let data = {
+            json_query: true,
+            json_def: 'relations'
+        };
+
+        $.ajax({
+            type: "GET",
+            url: '/child/' + child_slug + '/',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                console.log(data)
+            }
+        })
     });
 
 
