@@ -79,7 +79,8 @@
             width: 20%;
             margin-right: 5px; }
           .modal .modal-wrapper .modal-content .form-group .birth-wrapper select:nth-child(2) {
-            width: 50%; }
+            width: 50%;
+            margin-right: 5px; }
           .modal .modal-wrapper .modal-content .form-group .birth-wrapper select:nth-child(3) {
             width: 30%; }
         .modal .modal-wrapper .modal-content .form-group input[type="submit"] {
@@ -188,15 +189,20 @@
           text-transform: uppercase;
           font-weight: bold;
           font-size: 14px; }
-        .content .child-details .pic-commands .button-wrapper a {
+        .content .child-details .pic-commands .button-wrapper a, .content .child-details .pic-commands .button-wrapper button {
           display: block;
           padding: 8px 0 8px 10px;
           color: #fff;
           text-transform: uppercase;
           font-weight: bold;
-          font-size: 14px; }
+          font-size: 14px;
+          border: none;
+          font-family: 'PT Sans Narrow', sans-serif;
+          font-style: normal; }
       .content .child-details .pic-commands #save-child {
-        background: #d85088; }
+        background: #d85088;
+        width: 100%;
+        cursor: pointer; }
     .content .child-details .input-wrp {
       outline: none;
       font-size: 14px;

@@ -189,15 +189,20 @@
           text-transform: uppercase;
           font-weight: bold;
           font-size: 14px; }
-        .content .child-details .pic-commands .button-wrapper a {
+        .content .child-details .pic-commands .button-wrapper a, .content .child-details .pic-commands .button-wrapper button {
           display: block;
           padding: 8px 0 8px 10px;
           color: #fff;
           text-transform: uppercase;
           font-weight: bold;
-          font-size: 14px; }
+          font-size: 14px;
+          border: none;
+          font-family: 'PT Sans Narrow', sans-serif;
+          font-style: normal; }
       .content .child-details .pic-commands #save-child {
-        background: #d85088; }
+        background: #d85088;
+        width: 100%;
+        cursor: pointer; }
     .content .child-details .input-wrp {
       outline: none;
       font-size: 14px;

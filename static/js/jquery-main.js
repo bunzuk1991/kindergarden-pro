@@ -15,7 +15,7 @@ function formatDate(date) {
 function previewFile() {
 
   let preview = document.querySelector('.img-container .img-wrapper img');
-  let file    = document.querySelector('#add-photo').files[0];
+  let file    = document.querySelector('#id_child-image').files[0];
   let reader  = new FileReader();
 
   reader.onloadend = function () {
@@ -53,7 +53,7 @@ function clearForm() {
         $(this).attr('value', '');
         $(this).val('');
     })
-};
+}
 
 function convertDate(textDate) {
     let text = "" + textDate;
@@ -68,32 +68,54 @@ function convertDate(textDate) {
     return date_converted;
 }
 
-function returnParentHtml(id, name, date_of_birth, type, phone, work, posada, newitem){
+function returnParentHtml(id, name, date_of_birth, phone, work, posada, relations, address, newitem){
 
     let textHtml = '';
+    let id_num = id.replace(/lst-/g, "");
+    let prefix = 'parent-' + id_num + '-';
+    let textHtml_prev = '<div class="field-container">'
+             +   '<div class="top-line">'
+             +       '<input type="text" name="' + prefix + 'fullname" value="' + name + '" readonly maxlength="200" class="input-wrp" id="id_' + prefix + 'fullname">'
+             +   '</div>'
+             +   '<div class="bottom-line">'
+             +      '<div class="lst-date-birth">'
+             +           '<input type="text" name="' + prefix + 'date_of_birth" value="' + date_of_birth + '" readonly class="input-wrp" id="id_' + prefix + 'date_of_birth">'
+             +       '</div>'
+             +       '<div class="lst-phone">'
+             +           '<input type="text" name="' + prefix + 'phone" value="' + phone + '" readonly maxlength="40" class="input-wrp" id="id_' + prefix + 'phone">'
+             +       '</div>'
+             +   '</div>'
+             +'</div>'
+             + '<div class="field-container">'
+             +   '<div class="top-line">'
+             +       '<div class="lst-type">'
+             +           relations
+             +       '</div>'
+             +   '</div>'
+             +   '<div class="bottom-line">'
+             +       '<div class="lst-posada">'
+             +           '<input type="text" name="' + prefix + 'workplace" value="' + posada + '" readonly maxlength="90" class="input-wrp" id="id_' + prefix + 'workplace">'
+             +       '</div>'
+             +  '</div>'
+             + '</div>'
+             + '<div class="field-container">'
+             +   '<div class="lst-work">'
+             +       '<textarea name="' + prefix + 'work" cols="None" rows="None" readonly maxlength="250" class="input-wrp" id="id_' + prefix + 'work">' + work + '</textarea>'
+             +   '</div>'
+             + '</div>'
+             + '<div class="field-container hidden">'
+             +   '<div class="lst-address">'
+             +       '<textarea name="' + prefix + 'address" cols="40" rows="10" readonly maxlength="250" class="input-wrp" id="id_' + prefix + 'address">' + address + '</textarea>'
+             +   '</div>'
+             + '</div>'
+             + '<div class="field-container">'
+             +   '<div class="lst-change">'
+             +       '<a href="#" class="change-parent-info">Змінити</a>'
+             +       '<a href="#" class="delete-parent-info">Вилучити</a>'
+             +       '<input type="checkbox" name="' + prefix + 'DELETE" id="id_' + prefix + 'DELETE">'
+             +   '</div>'
+             + '</div>';
 
-    let textHtml_prev = '<div class="lst-name">'
-                +   '<p>' + name + '</p>'
-                + '</div>'
-                + '<div class="lst-date-birth">'
-                +   '<p>' + date_of_birth + '</p>'
-                + '</div>'
-                + '<div class="lst-type">'
-                +   '<p>' + type + '</p>'
-                + '</div>'
-                + '<div class="lst-phone">'
-                +   '<p>' + phone + '</p>'
-                + '</div>'
-                + '<div class="lst-work">'
-                +   '<p>' + work + '</p>'
-                + '</div>'
-                + '<div class="lst-posada">'
-                +   '<p>' + posada + '</p>'
-                + '</div>'
-                + '<div class="lst-change">'
-                +   '<p><a href="#" class="change-parent-info">Змінити</a></p>'
-                +   '<p><a href="#" class="delete-parent-info">Вилучити</a></p>'
-                + '</div>';
 
     if (newitem) {
         textHtml =  '<li class="lst-parent" id="' + id + '" data-operation="added"  data-delete="">' + textHtml_prev + '</li>';
@@ -128,7 +150,7 @@ function tabsToggle() {
     })
 }
 
-function get_ajax_data(json_def) {
+function get_ajax_data(json_def, target_element) {
         let child_slug = $('#child-slug').attr('data-slug');
 
         let data = {
@@ -136,7 +158,7 @@ function get_ajax_data(json_def) {
             json_def: json_def
         };
 
-        let returned_data;
+        let returned_data = {};
 
         $.ajax({
             type: "GET",
@@ -145,43 +167,59 @@ function get_ajax_data(json_def) {
             data: data,
             success: function (data) {
                 if (data) {
-                    returned_data = data;
+                    let target_items = $('.' + target_element),
+                    $item_ul    = $('<ul class="select">'),
+                    $item_select_value = $('<div class="select-value" data-value="">Оберіть відношення</div>'),
+                    $item_select_wrapper = $('<div class="select-item-wrapper">'),
+                    ajax_list = data.list;
+
+                    for (let i=0; i<ajax_list.length; i++) {
+                        let current_elem = ajax_list[i];
+                        $('<li class="select-item"></li>').attr("value", current_elem["id"]).text(current_elem["name"]).appendTo($item_select_wrapper);
+                    }
+
+                    $item_ul.append($item_select_value).append($item_select_wrapper);
+                    target_items.empty();
+                    target_items.append($item_ul);
+                    // for (let i=0; i<target_items.length; i++) {
+                    //     target_items[i].append($item_ul);
+                    // }
                 }
             }
-        })
+        });
 
         return returned_data;
     }
 
-function get_relation_list(target_element) {
-    let target_item = $('.' + target_element),
-        $item_ul    = $('<ul class="select" data-value="">'),
-        $item_select_value = $('<div class="select-value">Оберіть відношення</div>'),
-        $item_select_wrapper = $('<div class="select-item-wrapper">'),
-        ajax_list = get_ajax_data(json_def = 'relations');
-
-
-    for (var i=0; i<ajax_list.length; i++) {
-        let current_elem = ajax_list[i]
-        $('<li class="select-item"></li>').attr("value", current_elem["id"]).text(current_elem["name"]).appendTo($item_select_wrapper);
-    }
-
-    $item_ul.appendTo($item_select_value).appendTo($item_select_wrapper);
-    target_item.empty();
-    target_item.appendTo($item_ul);
-
-}
+// function get_relation_list(target_element) {
+//     let target_item = $('.' + target_element),
+//         $item_ul    = $('<ul class="select" data-value="">'),
+//         $item_select_value = $('<div class="select-value">Оберіть відношення</div>'),
+//         $item_select_wrapper = $('<div class="select-item-wrapper">'),
+//         ajax_list = get_ajax_data('relations');
+//
+//
+//     for (var i=0; i<ajax_list.length; i++) {
+//         let current_elem = ajax_list[i]
+//         $('<li class="select-item"></li>').attr("value", current_elem["id"]).text(current_elem["name"]).appendTo($item_select_wrapper);
+//     }
+//
+//     $item_ul.appendTo($item_select_value).appendTo($item_select_wrapper);
+//     target_item.empty();
+//     target_item.appendTo($item_ul);
+//
+// }
 
 
 $( document ).ready(function() {
 
     daysBar();
     tabsToggle();
+    get_ajax_data('relations', 'select-div');
 
     $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper"});
 
-
-    $('.select').on('click', function (e) {
+    $('.select-div').on('click', '.select', function (e) {
         e.preventDefault();
 
         let lists = $(this).find('.select-item-wrapper');
@@ -217,24 +255,43 @@ $( document ).ready(function() {
     $('#modal-parent-save').on('click', function (e) {
         e.preventDefault();
 
-        let form = $('#form-parent');
+        let form = $('#form-parent'),
+            id = form.find('input[name="form-id"]').val(),
+            select_value = $('.select-value').attr('data-value'),
+            select_option = $('.select-item'),
+            total_forms_tag = $('#id_parent-TOTAL_FORMS'),
+            total_forms_val = +total_forms_tag.val() + 1,
+            textHtml = '<select name="parent-' + id.replace(/lst-/g, "") + '-relation">';
 
-        let name = form.find('input[name="name"]').val();
-        let date_of_birth = form.find('input[name="date-of-birth"]').val();
-        let phone = form.find('input[name="phone"]').val();
-        let type = form.find('.select-value')[0].innerText;
-        let work = form.find('textarea[name="work"]').val();
-        let place = form.find('input[name="position"]').val();
-        let id = form.find('input[name="form-id"]').val();
-        let operation_type = form.find('#operation-type').attr('data-type');
-        let oper_numb = 0;
-        let modal = $('.modal');
+        for (i=0; i<select_option.length; i++) {
+           let current_elem = select_option[i];
+           let current_value = current_elem.getAttribute('value');
+           if (current_value === select_value) {
+               textHtml += '<option value="' + current_value + '" selected>' + current_elem.innerText + '</option>'
+           } else {
+               textHtml += '<option value="' + current_value + '">' + current_elem.innerText + '</option>'
+           }
+        }
+
+        textHtml += '</select>';
+
+        let name = form.find('input[name="name"]').val(),
+            date_of_birth = form.find('#birthdate').val(),
+            phone = form.find('input[name="phone"]').val(),
+            address = form.find('textarea[name="address"]').val(),
+            work = form.find('textarea[name="work"]').val(),
+            place = form.find('input[name="position"]').val(),
+            operation_type = form.find('#operation-type').attr('data-type'),
+            oper_numb = 0,
+            modal = $('.modal');
 
         if (operation_type === '1') {
-            let new_item = returnParentHtml(id, name, date_of_birth, type, phone, work, place, true);
+
+            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, true);
             $('.list-parents').append(new_item);
+            total_forms_tag.attr('value', total_forms_val);
         } else {
-            let new_item = returnParentHtml(id, name, date_of_birth, type, phone, work, place, false);
+            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, false);
             let elem = $("#" + id);
             if (elem.attr('data-operation') === '') {
                 elem.attr('data-operation', 'change')
@@ -249,12 +306,14 @@ $( document ).ready(function() {
 
     });
 
-    $('.select-item').on('click', function (e) {
+    $('.select-div').on('click', '.select-item', function (e) {
 
-        let current = $(this).text();
+        let current = $(this);
         let radio_selected = $('.select-value');
 
-        radio_selected.text(current);
+        radio_selected.text(current.text());
+        radio_selected.attr("data-value", current.attr("value"));
+
         if (!radio_selected.hasClass('value-inserted')) {
             radio_selected.addClass('value-inserted');
         }
@@ -268,7 +327,7 @@ $( document ).ready(function() {
 
         let fullname = current_element.find('#' + 'id_parent-' + num_id + '-fullname').val(),
             date_of_birth = current_element.find('#' + 'id_parent-' + num_id + '-date_of_birth').val(),
-            relation = current_element.find('#' + 'id_parent-' + num_id + '-relation:selected').val(),
+            relation = current_element.find('#' + 'id_parent-' + num_id + '-relation option:selected'),
             phone = current_element.find('#' + 'id_parent-' + num_id + '-phone').val(),
             address = current_element.find('#' + 'id_parent-' + num_id + '-address').val(),
             work = current_element.find('#' + 'id_parent-' + num_id + '-work').val(),
@@ -287,7 +346,7 @@ $( document ).ready(function() {
         $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper", "defaultDate": formatDate(date_from_p)});
         form.find('input[name="phone"]').attr('value', phone);
         form.find('input[name="phone"]').val(phone);
-        // form.find('.select-value').text(type);
+        form.find('.select-value').attr('data-value', relation.val()).text(relation[0].innerText).addClass('value-inserted');
         form.find('textarea[name="work"]').val(work);
         form.find('input[name="position"]').attr('value', workplace);
         form.find('input[name="position"]').val(workplace);
@@ -303,15 +362,17 @@ $( document ).ready(function() {
 
     $('.list-parents').on('click', '.delete-parent-info',  function (e) {
         e.preventDefault();
-        let current_element = $(this).closest('.lst-parent');
-
-
+        let current_element = $(this).closest('.lst-parent'),
+            total_forms_tag = $('#id_parent-TOTAL_FORMS'),
+            total_forms_val = +total_forms_tag.val() - 1;
+        total_forms_tag.val(total_forms_val);
+        current_element.find('input[id$=DELETE]').prop('checked', true);
         current_element.addClass('parent-deleted');
         current_element.attr('data-delete', 'true');
 
     });
 
-    $('#add-photo').on('change', function (e) {
+    $('.button-wrapper').on('change', '#id_child-image', function (e) {
         previewFile();
     });
 
@@ -362,7 +423,6 @@ $( document ).ready(function() {
     $('#save-child').on('click', function (e) {
         e.preventDefault();
 
-        get_relation_list('select-div')
 
     });
 

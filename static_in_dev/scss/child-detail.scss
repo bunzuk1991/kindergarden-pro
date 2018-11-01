@@ -258,17 +258,22 @@
             font-size: 14px;
           }
 
-          a {
+          a, button {
             display: block;
             padding: 8px 0 8px 10px;
             color: #fff;
             text-transform: uppercase;
             font-weight: bold;
             font-size: 14px;
+            border: none;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-style: normal;
           }
         }
         #save-child {
           background: #d85088;
+          width: 100%;
+          cursor: pointer;
         }
       }
 
