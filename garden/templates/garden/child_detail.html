@@ -41,15 +41,17 @@
                         </div>
                         <div class="form-group">
                             <label>Відношення</label>
-                            <ul class="select" data-value="">
-                                <div class="select-value">Оберіть відношення</div>
-                                <div class="select-item-wrapper">
-                                    <li class="select-item" value="father">Батько</li>
-                                    <li class="select-item" value="mother">Мати</li>
-                                    <li class="select-item" value="grandmother">Бабуся</li>
-                                    <li class="select-item" value="grandfather">Дідусь</li>
-                                </div>
-                            </ul>
+                            <div class="select-div">
+                                <ul class="select" data-value="">
+                                    <div class="select-value">Оберіть відношення</div>
+                                    <div class="select-item-wrapper">
+                                        <li class="select-item" value="father">Батько</li>
+                                        <li class="select-item" value="mother">Мати</li>
+                                        <li class="select-item" value="grandmother">Бабуся</li>
+                                        <li class="select-item" value="grandfather">Дідусь</li>
+                                    </div>
+                                </ul>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Місце роботи</label>
@@ -163,7 +165,7 @@
                                 </div>
                                 <div class="pic-commands">
                                     <div class="button-wrapper">
-                                        <label for="id_image">Додати фотографію</label>
+                                        <label for="id_child-image">Додати фотографію</label>
 {#                                        <input type="file" id="add-photo">#}
                                         {{ form.image }}
                                     </div>

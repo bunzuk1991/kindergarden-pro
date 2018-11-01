@@ -12,11 +12,10 @@ function formatDate(date) {
   return yy + '-' + mm + '-' + dd;
 }
 
-
 function previewFile() {
 
   let preview = document.querySelector('.img-container .img-wrapper img');
-  let file    = document.querySelector('#add-photo').files[0];
+  let file    = document.querySelector('#id_child-image').files[0];
   let reader  = new FileReader();
 
   reader.onloadend = function () {
@@ -30,7 +29,6 @@ function previewFile() {
   }
 }
 
-
 function daysBar() {
     let items = $(".percent-data");
 
@@ -42,7 +40,6 @@ function daysBar() {
 
     });
 }
-
 
 function clearForm() {
     let form_ = $('#form-parent');
@@ -57,7 +54,6 @@ function clearForm() {
         $(this).val('');
     })
 };
-
 
 function convertDate(textDate) {
     let text = "" + textDate;
@@ -132,6 +128,67 @@ function tabsToggle() {
     })
 }
 
+function get_ajax_data(json_def, target_element) {
+        let child_slug = $('#child-slug').attr('data-slug');
+
+        let data = {
+            json_query: true,
+            json_def: json_def
+        };
+
+        let returned_data = {};
+
+        $.ajax({
+            type: "GET",
+            url: '/child/' + child_slug + '/',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                if (data) {
+                    let target_items = $('.' + target_element),
+                    $item_ul    = $('<ul class="select">'),
+                    $item_select_value = $('<div class="select-value" data-value="">Оберіть відношення</div>'),
+                    $item_select_wrapper = $('<div class="select-item-wrapper">'),
+                    ajax_list = data.list;
+
+                    for (let i=0; i<ajax_list.length; i++) {
+                        let current_elem = ajax_list[i];
+                        $('<li class="select-item"></li>').attr("value", current_elem["id"]).text(current_elem["name"]).appendTo($item_select_wrapper);
+                    }
+
+                    $item_ul.append($item_select_value).append($item_select_wrapper);
+                    target_items.empty();
+                    target_items.append($item_ul);
+                    // for (let i=0; i<target_items.length; i++) {
+                    //     target_items[i].append($item_ul);
+                    // }
+                }
+            }
+        });
+
+        return returned_data;
+    }
+
+// function get_relation_list(target_element) {
+//     let target_item = $('.' + target_element),
+//         $item_ul    = $('<ul class="select" data-value="">'),
+//         $item_select_value = $('<div class="select-value">Оберіть відношення</div>'),
+//         $item_select_wrapper = $('<div class="select-item-wrapper">'),
+//         ajax_list = get_ajax_data('relations');
+//
+//
+//     for (var i=0; i<ajax_list.length; i++) {
+//         let current_elem = ajax_list[i]
+//         $('<li class="select-item"></li>').attr("value", current_elem["id"]).text(current_elem["name"]).appendTo($item_select_wrapper);
+//     }
+//
+//     $item_ul.appendTo($item_select_value).appendTo($item_select_wrapper);
+//     target_item.empty();
+//     target_item.appendTo($item_ul);
+//
+// }
+
+
 $( document ).ready(function() {
 
     daysBar();
@@ -139,8 +196,7 @@ $( document ).ready(function() {
 
     $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper"});
 
-
-    $('.select').on('click', function (e) {
+    $('.select-div').on('click', '.select', function (e) {
         e.preventDefault();
 
         let lists = $(this).find('.select-item-wrapper');
@@ -208,12 +264,14 @@ $( document ).ready(function() {
 
     });
 
-    $('.select-item').on('click', function (e) {
+    $('.select-div').on('click', '.select-item', function (e) {
 
-        let current = $(this).text();
+        let current = $(this);
         let radio_selected = $('.select-value');
 
-        radio_selected.text(current);
+        radio_selected.text(current.text());
+        radio_selected.attr("data-value", current.attr("value"));
+
         if (!radio_selected.hasClass('value-inserted')) {
             radio_selected.addClass('value-inserted');
         }
@@ -270,7 +328,7 @@ $( document ).ready(function() {
 
     });
 
-    $('#add-photo').on('change', function (e) {
+    $('.button-wrapper').on('change', '#id_child-image', function (e) {
         previewFile();
     });
 
@@ -320,23 +378,11 @@ $( document ).ready(function() {
 
     $('#save-child').on('click', function (e) {
         e.preventDefault();
-        let child_slug = $('#child-slug').attr('data-slug');
 
-        let data = {
-            json_query: true,
-            json_def: 'relations'
-        };
+        get_ajax_data('relations', 'select-div')
 
-        $.ajax({
-            type: "GET",
-            url: '/child/' + child_slug + '/',
-            dataType: 'json',
-            data: data,
-            success: function (data) {
-                console.log(data)
-            }
-        })
     });
+
 
 
     $(window).mouseup(function (e) {

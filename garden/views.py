@@ -53,7 +53,6 @@ class ChildDetailView(View):
         else:
             if json_def == 'relations':
                 list_json = get_relation_list()
-                print(list_json)
                 return list_json
             else:
                 return Http404

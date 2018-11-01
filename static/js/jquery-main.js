@@ -12,7 +12,6 @@ function formatDate(date) {
   return yy + '-' + mm + '-' + dd;
 }
 
-
 function previewFile() {
 
   let preview = document.querySelector('.img-container .img-wrapper img');
@@ -30,7 +29,6 @@ function previewFile() {
   }
 }
 
-
 function daysBar() {
     let items = $(".percent-data");
 
@@ -42,7 +40,6 @@ function daysBar() {
 
     });
 }
-
 
 function clearForm() {
     let form_ = $('#form-parent');
@@ -58,13 +55,18 @@ function clearForm() {
     })
 };
 
-
 function convertDate(textDate) {
     let text = "" + textDate;
-    let date = new Date(text.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+    let dd = text.indexOf(".");
+    let date_converted;
+    if (dd !== -1) {
+        date_converted = new Date(text.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+    } else {
+        date_converted = new Date(text);
+    }
 
-    return date;
-};
+    return date_converted;
+}
 
 function returnParentHtml(id, name, date_of_birth, type, phone, work, posada, newitem){
 
@@ -125,6 +127,51 @@ function tabsToggle() {
 
     })
 }
+
+function get_ajax_data(json_def) {
+        let child_slug = $('#child-slug').attr('data-slug');
+
+        let data = {
+            json_query: true,
+            json_def: json_def
+        };
+
+        let returned_data;
+
+        $.ajax({
+            type: "GET",
+            url: '/child/' + child_slug + '/',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                if (data) {
+                    returned_data = data;
+                }
+            }
+        })
+
+        return returned_data;
+    }
+
+function get_relation_list(target_element) {
+    let target_item = $('.' + target_element),
+        $item_ul    = $('<ul class="select" data-value="">'),
+        $item_select_value = $('<div class="select-value">Оберіть відношення</div>'),
+        $item_select_wrapper = $('<div class="select-item-wrapper">'),
+        ajax_list = get_ajax_data(json_def = 'relations');
+
+
+    for (var i=0; i<ajax_list.length; i++) {
+        let current_elem = ajax_list[i]
+        $('<li class="select-item"></li>').attr("value", current_elem["id"]).text(current_elem["name"]).appendTo($item_select_wrapper);
+    }
+
+    $item_ul.appendTo($item_select_value).appendTo($item_select_wrapper);
+    target_item.empty();
+    target_item.appendTo($item_ul);
+
+}
+
 
 $( document ).ready(function() {
 
@@ -235,8 +282,9 @@ $( document ).ready(function() {
 
         form.find('input[name="name"]').attr('value', fullname);
         form.find('input[name="name"]').val(fullname);
-        form.find('input[name="date-of-birth"]').attr('value', formatDate(date_from_p));
-        form.find('input[name="date-of-birth"]').val(formatDate(date_from_p));
+        form.find('#birthdate').attr('value', formatDate(date_from_p));
+        form.find('#birthdate').val(formatDate(date_from_p));
+        $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper", "defaultDate": formatDate(date_from_p)});
         form.find('input[name="phone"]').attr('value', phone);
         form.find('input[name="phone"]').val(phone);
         // form.find('.select-value').text(type);
@@ -313,23 +361,11 @@ $( document ).ready(function() {
 
     $('#save-child').on('click', function (e) {
         e.preventDefault();
-        let child_slug = $('#child-slug').attr('data-slug');
 
-        let data = {
-            json_query: true,
-            json_def: 'relations'
-        };
+        get_relation_list('select-div')
 
-        $.ajax({
-            type: "GET",
-            url: '/child/' + child_slug + '/',
-            dataType: 'json',
-            data: data,
-            success: function (data) {
-                console.log(data)
-            }
-        })
     });
+
 
 
     $(window).mouseup(function (e) {
