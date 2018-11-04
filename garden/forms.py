@@ -8,8 +8,11 @@ class ChildForm(ModelForm):
         model = Children
         fields = ['fullname', 'slug', 'date_of_birth', 'growth', 'image', 'weight', 'date_start', 'date_end', 'address', 'actual_group']
         widgets = {
-            'date_of_birth': SelectDateWidget()}
-            # 'image': FileInput()}
+            'date_of_birth': SelectDateWidget(),
+            'image': FileInput(),
+            'actual_group': Select(),
+            'date_start': DateInput(attrs={"class": "cl-date-picker"}),
+            'date_end': DateInput(attrs={"class": "cl-date-picker"})}
 
     def __init__(self, *args, **kwargs):
         super(ChildForm, self).__init__(*args, **kwargs)
@@ -18,6 +21,11 @@ class ChildForm(ModelForm):
             visible.field.widget.attrs['class'] = 'input-wrp'
             if visible.name == 'relation':
                 visible.field.widget.attrs['class'] = 'disabled-text-area'
+            if visible.name == 'date_start':
+                visible.field.widget.attrs['class'] = 'cl-date-picker'
+            if visible.name == 'date_end':
+                visible.field.widget.attrs['class'] = 'cl-date-picker'
+
 
 
 class BaseParentFormSet(BaseModelFormSet):

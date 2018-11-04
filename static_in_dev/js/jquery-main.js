@@ -225,6 +225,7 @@ $( document ).ready(function() {
     daysBar();
     tabsToggle();
     get_ajax_data('relations', 'select-div');
+    $('.cl-date-picker').datepicker();
 
     $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper"});
 

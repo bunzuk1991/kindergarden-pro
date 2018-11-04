@@ -130,7 +130,7 @@
             </div>
             <div class="child-details" id="child-slug" data-slug="{{ slug }}">
                 <h3>Особиста інформація по Буняк Володимир Сергійович</h3>
-                <form action="." method="post">{% csrf_token %}
+                <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
                     <div class="detail-content-wrapper">
                         <div class="line-img-personal-info">
                             <div class="img-container">
@@ -157,15 +157,29 @@
                                             {{ form.date_of_birth }}
                                         </div>
                                     </div>
-                                    <div class="input-group">
-                                        <span class="label-wrp label-req">Ріст (см.)</span>
-    {#                                                <input class="input-wrp" name="height" type="number" min="1" max="300" value="121">#}
-                                        {{ form.growth }}
+                                    <div class="input-container">
+                                        <div class="input-group">
+                                            <span class="label-wrp label-req">Ріст (см.)</span>
+                                            {{ form.growth }}
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="label-wrp label-req">Вага (кг.)</span>
+                                            {{ form.weight }}
+                                        </div>
+                                    </div>
+                                    <div class="input-container">
+                                        <div class="input-group">
+                                            <span class="label-wrp label-req">Дата початку</span>
+                                            {{ form.date_start }}
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="label-wrp label-req">Дата закінчення</span>
+                                            {{ form.date_end }}
+                                        </div>
                                     </div>
                                     <div class="input-group">
-                                        <span class="label-wrp label-req">Вага (кг.)</span>
-    {#                                                <input class="input-wrp" name="weight" type="number" min="1" max="300" value="21">#}
-                                        {{ form.weight }}
+                                        <span class="label-wrp label-req" data-img="\f000">Група</span>
+                                        {{ form.actual_group }}
                                     </div>
                                     <div class="pic-commands">
                                         <div class="button-wrapper">

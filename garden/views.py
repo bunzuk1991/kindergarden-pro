@@ -63,7 +63,7 @@ class ChildDetailView(View):
     def post(self, request, *args, **kwargs):
         child_slug = kwargs['slug']
         child_obj = get_object_or_404(Children, slug=child_slug)
-        form = ChildForm(request.POST or None, prefix='child', instance=child_obj)
+        form = ChildForm(request.POST or None, request.FILES, prefix='child', instance=child_obj)
         formset = ParentFormSet(request.POST, prefix='parent')
 
         print(form.errors)
@@ -75,22 +75,11 @@ class ChildDetailView(View):
                 setattr(child_new, key, form.cleaned_data[key])
 
             # child_new.image = form.cleaned_data["image"]
-            child_new.date_start = now()
-            child_new.date_end = now()
-            child_new.address = '1'
-            child_new.actual_group = Group.objects.get(id=1)
             child_new.save()
-            print(form.cleaned_data["image"])
 
             parents = formset.save(commit=False)
             current_idx = -1
             for parent in parents:
-                current_idx += 1
-                act_form = formset[current_idx]
-                # for key in act_form.fields:
-                #     if not key == "DELETE":
-                #         setattr(parent, key, act_form.cleaned_data[key])
-
                 parent.child = child_new
                 parent.save()
 

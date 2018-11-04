@@ -211,7 +211,7 @@
       padding: 0 0 0 10px;
       box-sizing: border-box;
       display: block;
-      width: calc(100% - 140px); }
+      width: calc(100% - 150px); }
     .content .child-details .date-select-wrapper {
       width: calc(100% - 140px);
       font-size: 14px;
@@ -313,6 +313,12 @@
             width: 80%;
             margin: 0 auto;
             padding: 10px 0; }
+            .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-container {
+              display: flex; }
+              .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-container div:nth-child(1) {
+                width: 50%; }
+              .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-container div:nth-child(2) {
+                width: 50%; }
             .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group {
               margin-bottom: 10px;
               display: flex; }

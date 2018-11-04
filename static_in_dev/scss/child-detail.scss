@@ -285,7 +285,7 @@
         padding: 0 0 0 10px;
         box-sizing: border-box;
         display: block;
-        width: calc(100% - 140px);
+        width: calc(100% - 150px);
       }
 
       .date-select-wrapper {
@@ -417,6 +417,17 @@
               width: 80%;
               margin: 0 auto;
               padding: 10px 0;
+
+              .input-container {
+                display: flex;
+
+                div:nth-child(1) {
+                  width: 50%;
+                }
+                div:nth-child(2) {
+                  width: 50%;
+                }
+              }
 
               .input-group {
                 margin-bottom: 10px;
