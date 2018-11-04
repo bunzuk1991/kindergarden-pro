@@ -21,6 +21,8 @@
                         <div class="form-group">
                             <label>ПІБ</label>
                             <input name="name" type="text" value="" placeholder="Прізвище, ім’я, по-батькові">
+                            <input type="hidden" name="parent_id" value="0">
+                            <input type="hidden" name="child" value="0">
                         </div>
                         <div class="form-group">
                             <label>Дата народження</label>
@@ -134,8 +136,9 @@
                             <div class="img-container">
                                 <div class="img-wrapper">
     {#                                            <img src="img/boy.jpg" alt="">#}
-                                    {% if elem.child.image %}
-                                        <img src="{{ form.image.url }}" alt="#">
+                                {{ form.non_field_errors }}
+                                    {% if image %}
+                                        <img src="{{ image }}" alt="#">
                                     {% else %}
                                         <img src="{% static 'img/no-image.png' %}" alt="#">
                                     {% endif %}
@@ -194,12 +197,14 @@
                                     <ul class="list-parents">
                                         {{ formset.management_form }}
                                         {% for form_ in formset %}
-
+                                        {{ form_.non_field_errors }}
                                             <li class="lst-parent" id="lst-{{ forloop.counter0 }}" data-operation="" data-delete="">
                                             <div class="field-container">
                                                 <div class="top-line">
     {#                                                <input type="text" name="parent_name" value="Буняк Володимир Сергійович" readonly>#}
                                                     {{ form_.fullname }}
+                                                    {{ form_.id }}
+                                                    {{ form_.child }}
                                                 </div>
                                                 <div class="bottom-line">
                                                     <div class="lst-date-birth">

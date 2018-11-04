@@ -1,9 +1,11 @@
+# coding=utf-8
 from django.shortcuts import render, HttpResponseRedirect, Http404, get_object_or_404
 from django.views.generic import ListView, DetailView, View, CreateView
 from .models import *
 from .forms import *
 from .mixins import UniversalMixins
 from .custom import *
+from django.utils.timezone import now
 
 
 class ChildrenListView(UniversalMixins, ListView):
@@ -45,9 +47,10 @@ class ChildDetailView(View):
             child_obj = get_object_or_404(Children, slug = child_slug)
 
             formset = ParentFormSet(queryset=child_obj.parent_set.all(), prefix='parent')
-            self.context['form'] = ChildForm(request.POST or None, instance=child_obj, prefix='child')
+            self.context['form'] = ChildForm(instance=child_obj, prefix='child')
             self.context['formset'] = formset
             self.context['slug'] = child_obj.slug
+            self.context['image'] = child_obj.get_absolute_image_url()
 
             return render(self.request, self.template_name, self.context)
         else:
@@ -56,6 +59,47 @@ class ChildDetailView(View):
                 return list_json
             else:
                 return Http404
+
+    def post(self, request, *args, **kwargs):
+        child_slug = kwargs['slug']
+        child_obj = get_object_or_404(Children, slug=child_slug)
+        form = ChildForm(request.POST or None, prefix='child', instance=child_obj)
+        formset = ParentFormSet(request.POST, prefix='parent')
+
+        print(form.errors)
+        print(formset.errors)
+        if form.is_valid() and formset.is_valid():
+            child_new = form.save(commit=False)
+
+            for key in form.fields:
+                setattr(child_new, key, form.cleaned_data[key])
+
+            # child_new.image = form.cleaned_data["image"]
+            child_new.date_start = now()
+            child_new.date_end = now()
+            child_new.address = '1'
+            child_new.actual_group = Group.objects.get(id=1)
+            child_new.save()
+            print(form.cleaned_data["image"])
+
+            parents = formset.save(commit=False)
+            current_idx = -1
+            for parent in parents:
+                current_idx += 1
+                act_form = formset[current_idx]
+                # for key in act_form.fields:
+                #     if not key == "DELETE":
+                #         setattr(parent, key, act_form.cleaned_data[key])
+
+                parent.child = child_new
+                parent.save()
+
+            return HttpResponseRedirect(reverse('childrens-list'))
+
+        self.context['form'] = form
+        self.context['formset'] = formset
+        return render(self.request, self.template_name, self.context)
+
 
 
 # test for inlines forms

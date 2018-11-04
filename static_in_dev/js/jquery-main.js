@@ -68,14 +68,23 @@ function convertDate(textDate) {
     return date_converted;
 }
 
-function returnParentHtml(id, name, date_of_birth, phone, work, posada, relations, address, newitem){
+function returnParentHtml(id, name, date_of_birth, phone, work, posada, relations, address, parent_id, newitem){
 
     let textHtml = '';
     let id_num = id.replace(/lst-/g, "");
     let prefix = 'parent-' + id_num + '-';
+    let text_replace;
+
+    if (newitem) {
+        text_replace = '';
+    } else {
+        text_replace = ' value="' + parent_id + '"';
+    }
+
     let textHtml_prev = '<div class="field-container">'
              +   '<div class="top-line">'
              +       '<input type="text" name="' + prefix + 'fullname" value="' + name + '" readonly maxlength="200" class="input-wrp" id="id_' + prefix + 'fullname">'
+             +       '<input type="hidden" name="' + prefix + 'id"' + text_replace + ' class="input-wrp" id="id_' + prefix + 'id">'
              +   '</div>'
              +   '<div class="bottom-line">'
              +      '<div class="lst-date-birth">'
@@ -283,15 +292,16 @@ $( document ).ready(function() {
             place = form.find('input[name="position"]').val(),
             operation_type = form.find('#operation-type').attr('data-type'),
             oper_numb = 0,
+            parent_id = form.find('input[name="parent_id"]').val(),
             modal = $('.modal');
 
         if (operation_type === '1') {
 
-            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, true);
+            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, true);
             $('.list-parents').append(new_item);
             total_forms_tag.attr('value', total_forms_val);
         } else {
-            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, false);
+            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, false);
             let elem = $("#" + id);
             if (elem.attr('data-operation') === '') {
                 elem.attr('data-operation', 'change')
@@ -331,7 +341,8 @@ $( document ).ready(function() {
             phone = current_element.find('#' + 'id_parent-' + num_id + '-phone').val(),
             address = current_element.find('#' + 'id_parent-' + num_id + '-address').val(),
             work = current_element.find('#' + 'id_parent-' + num_id + '-work').val(),
-            workplace = current_element.find('#' + 'id_parent-' + num_id + '-workplace').val();
+            workplace = current_element.find('#' + 'id_parent-' + num_id + '-workplace').val(),
+            parent_id = current_element.find('#' + 'id_parent-' + num_id + '-id').val();
 
 
         clearForm();
@@ -352,6 +363,8 @@ $( document ).ready(function() {
         form.find('input[name="position"]').val(workplace);
         form.find('input[name="form-id"]').attr('value', id_parent);
         form.find('input[name="form-id"]').val(id_parent);
+        form.find('input[name="parent_id"]').val(parent_id);
+        form.find('input[name="parent_id"]').attr('value', parent_id);
         form.find('#operation-type').attr('data-type', '2');
 
 

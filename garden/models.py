@@ -45,17 +45,17 @@ class Group(models.Model):
 
 
 class Children(models.Model):
-    fullname = models.CharField(max_length=200, default='', blank=True)
+    fullname = models.CharField(max_length=200, default='')
     date_of_birth = models.DateField(auto_now=False)
     growth = models.PositiveIntegerField(default=0)
     weight = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    image = models.ImageField(upload_to=generate_file_name, default="no-image.png")
+    image = models.ImageField(upload_to=generate_file_name, default="no-image.png", blank=True, null=True)
     slug = models.SlugField(default='', blank=True)
     active = models.BooleanField(default=True)
-    date_start = models.DateField(auto_now=False)
-    date_end = models.DateField(auto_now=False)
-    address = models.CharField(max_length=250, default='')
-    actual_group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    date_start = models.DateField(auto_now=False, blank=True)
+    date_end = models.DateField(auto_now=False, blank=True)
+    address = models.CharField(max_length=250, default='', blank=True)
+    actual_group = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return self.fullname
@@ -65,6 +65,7 @@ class Children(models.Model):
 
     def get_absolute_url(self):
         return reverse('child-detail', kwargs={'slug': self.slug})
+
 
 class Relation(models.Model):
     name = models.CharField(max_length=120)
@@ -80,7 +81,7 @@ class Parent(models.Model):
     fullname = models.CharField(max_length=200, default='', blank=True)
     date_of_birth = models.DateField(auto_now=False)
     phone = models.CharField(max_length=40, default='', blank=True)
-    address = models.CharField(max_length=250, default='')
+    address = models.CharField(max_length=250, default='', blank=True)
     work = models.CharField(max_length=250, default='')
     workplace = models.CharField(max_length=90, default='')
     with_child = models.BooleanField(default=True)
@@ -88,9 +89,6 @@ class Parent(models.Model):
 
     def __str__(self):
         return '%s(%s)' % (self.fullname, self.child.fullname)
-
-
-
 
 
 def slug_save(sender, instance, *args, **kwargs):
