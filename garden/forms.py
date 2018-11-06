@@ -9,6 +9,7 @@ class ChildForm(ModelForm):
         fields = ['fullname', 'slug', 'date_of_birth', 'growth', 'image', 'weight', 'date_start', 'date_end', 'address', 'actual_group']
         widgets = {
             'date_of_birth': SelectDateWidget(),
+            'address': Textarea(),
             'image': FileInput(),
             'actual_group': Select(),
             'date_start': DateInput(attrs={"class": "cl-date-picker"}),
@@ -21,10 +22,12 @@ class ChildForm(ModelForm):
             visible.field.widget.attrs['class'] = 'input-wrp'
             if visible.name == 'relation':
                 visible.field.widget.attrs['class'] = 'disabled-text-area'
+            if visible.name == 'address':
+                visible.field.widget.attrs['class'] = 'non-resize-text-area'
             if visible.name == 'date_start':
-                visible.field.widget.attrs['class'] = 'cl-date-picker'
+                visible.field.widget.attrs['class'] = 'input-wrp cl-date-picker'
             if visible.name == 'date_end':
-                visible.field.widget.attrs['class'] = 'cl-date-picker'
+                visible.field.widget.attrs['class'] = 'input-wrp cl-date-picker'
 
 
 

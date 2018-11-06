@@ -206,16 +206,17 @@
     .content .child-details .input-wrp {
       outline: none;
       font-size: 14px;
-      margin-right: 10px;
       height: 26px;
       padding: 0 0 0 10px;
       box-sizing: border-box;
       display: block;
-      width: calc(100% - 150px); }
+      width: calc(100% - 150px);
+      border: 1px solid #afafaf; }
+      .content .child-details .input-wrp select {
+        padding-left: 5px !important; }
     .content .child-details .date-select-wrapper {
-      width: calc(100% - 140px);
+      width: calc(100% - 150px);
       font-size: 14px;
-      margin-right: 10px;
       height: 26px;
       box-sizing: border-box;
       display: flex; }
@@ -224,22 +225,22 @@
       .content .child-details .date-select-wrapper select:nth-child(1) {
         width: 50%; }
       .content .child-details .date-select-wrapper select:nth-child(2) {
-        width: 20%; }
+        width: 20%;
+        margin-left: 5px; }
       .content .child-details .date-select-wrapper select:nth-child(3) {
         width: 30%;
-        margin-right: 0; }
+        margin-left: 5px; }
     .content .child-details .label-wrp {
-      padding-right: 45px;
       padding-left: 5px;
-      font-size: 14px;
-      font-weight: bold;
+      font-size: 15px;
       display: block;
       background: #4a4a4a;
       color: #ffffff;
       height: 26px;
       line-height: 26px;
-      width: 100px;
-      position: relative; }
+      width: 150px;
+      position: relative;
+      box-sizing: border-box; }
       .content .child-details .label-wrp:after {
         content: '';
         font-family: FontAwesome;
@@ -318,10 +319,13 @@
               .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-container div:nth-child(1) {
                 width: 50%; }
               .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-container div:nth-child(2) {
-                width: 50%; }
+                width: 50%;
+                margin-left: 10px; }
             .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group {
               margin-bottom: 10px;
               display: flex; }
+            .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group select {
+              padding-left: 5px; }
             .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands {
               display: flex;
               align-items: center;

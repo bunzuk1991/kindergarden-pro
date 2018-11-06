@@ -280,18 +280,21 @@
       .input-wrp {
         outline: none;
         font-size: 14px;
-        margin-right: 10px;
         height: 26px;
         padding: 0 0 0 10px;
         box-sizing: border-box;
         display: block;
         width: calc(100% - 150px);
+        border: 1px solid #afafaf;
+
+        select {
+          padding-left: 5px !important;
+        }
       }
 
       .date-select-wrapper {
-        width: calc(100% - 140px);
+        width: calc(100% - 150px);
         font-size: 14px;
-        margin-right: 10px;
         height: 26px;
         box-sizing: border-box;
         display: flex;
@@ -305,25 +308,25 @@
         }
         select:nth-child(2) {
           width: 20%;
+          margin-left: 5px;
         }
         select:nth-child(3) {
           width: 30%;
-          margin-right: 0;
+          margin-left: 5px;
         }
       }
 
       .label-wrp {
-        padding-right: 45px;
         padding-left: 5px;
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 15px;
         display: block;
         background: #4a4a4a;
         color: #ffffff;
         height: 26px;
         line-height: 26px;
-        width: 100px;
+        width: 150px;
         position: relative;
+        box-sizing: border-box;
 
         &:after {
           content: '';
@@ -426,12 +429,17 @@
                 }
                 div:nth-child(2) {
                   width: 50%;
+                  margin-left: 10px;
                 }
               }
 
               .input-group {
                 margin-bottom: 10px;
                 display: flex;
+
+                select {
+                  padding-left: 5px;
+                }
               }
               .pic-commands {
                 display: flex;

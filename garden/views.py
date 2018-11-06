@@ -83,6 +83,9 @@ class ChildDetailView(View):
                 parent.child = child_new
                 parent.save()
 
+            for parent_deleted in formset.deleted_objects:
+                parent_deleted.delete()
+
             return HttpResponseRedirect(reverse('childrens-list'))
 
         self.context['form'] = form

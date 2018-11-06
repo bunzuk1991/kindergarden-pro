@@ -245,7 +245,7 @@ $( document ).ready(function() {
         let last_id = 0;
 
         if (last_element.length === 0) {
-           last_id = 1;
+           last_id = 0;
         } else {
             last_id = +last_element.attr('id').replace(/lst-/g, "");
             last_id += 1;
@@ -379,11 +379,12 @@ $( document ).ready(function() {
         let current_element = $(this).closest('.lst-parent'),
             total_forms_tag = $('#id_parent-TOTAL_FORMS'),
             total_forms_val = +total_forms_tag.val() - 1;
-        total_forms_tag.val(total_forms_val);
+        if (current_element.attr("data-operation") === "added") {
+            total_forms_tag.val(total_forms_val);
+        }
         current_element.find('input[id$=DELETE]').prop('checked', true);
         current_element.addClass('parent-deleted');
         current_element.attr('data-delete', 'true');
-
     });
 
     $('.button-wrapper').on('change', '#id_child-image', function (e) {
