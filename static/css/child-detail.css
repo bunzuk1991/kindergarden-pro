@@ -172,37 +172,6 @@
       padding: 0;
       margin: 0 0 20px;
       color: #585858; }
-    .content .child-details .pic-commands {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      margin: 20px 0; }
-      .content .child-details .pic-commands .button-wrapper {
-        color: #fff;
-        background: #79799c;
-        border-radius: 4px; }
-        .content .child-details .pic-commands .button-wrapper input[type='file'] {
-          display: none; }
-        .content .child-details .pic-commands .button-wrapper label {
-          display: block;
-          padding: 8px 0 8px 10px;
-          text-transform: uppercase;
-          font-weight: bold;
-          font-size: 14px; }
-        .content .child-details .pic-commands .button-wrapper a, .content .child-details .pic-commands .button-wrapper button {
-          display: block;
-          padding: 8px 0 8px 10px;
-          color: #fff;
-          text-transform: uppercase;
-          font-weight: bold;
-          font-size: 14px;
-          border: none;
-          font-family: 'PT Sans Narrow', sans-serif;
-          font-style: normal; }
-      .content .child-details .pic-commands #save-child {
-        background: #d85088;
-        width: 100%;
-        cursor: pointer; }
     .content .child-details .input-wrp {
       outline: none;
       font-size: 14px;
@@ -234,7 +203,7 @@
       padding-left: 5px;
       font-size: 15px;
       display: block;
-      background: #4a4a4a;
+      background: #6d6d6d;
       color: #ffffff;
       height: 26px;
       line-height: 26px;
@@ -248,11 +217,12 @@
         display: block;
         height: 100%;
         width: 30px;
-        background: #457f2d;
+        background: #4c4c4c;
         top: 0;
         right: 0;
         text-align: center;
-        font-weight: normal; }
+        font-weight: normal;
+        color: white; }
     .content .child-details .label-req:after {
       content: '\f046'; }
     .content .child-details .detail-content-wrapper {
@@ -314,6 +284,17 @@
             width: 80%;
             margin: 0 auto;
             padding: 10px 0; }
+            .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .nonfield {
+              margin-bottom: 10px; }
+              .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .nonfield li {
+                padding: 5px 0 5px 20px;
+                margin-bottom: 5px;
+                background: #ff7eb4;
+                color: #560707;
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 1px; }
             .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-container {
               display: flex; }
               .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-container div:nth-child(1) {
@@ -324,19 +305,28 @@
             .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group {
               margin-bottom: 10px;
               display: flex; }
-            .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group select {
-              padding-left: 5px; }
+              .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group select {
+                padding-left: 5px; }
             .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands {
               display: flex;
               align-items: center;
-              justify-content: space-around;
-              margin: 20px 0; }
+              justify-content: space-between;
+              margin: 20px 0;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              border-top: 2px solid #00000017;
+              border-left: 2px solid #00000017;
+              box-shadow: 3px 2px 3px 1px #0000004a;
+              background: #79799c;
+              border-radius: 5px; }
               .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper {
-                color: #fff;
-                background: #79799c;
-                border-radius: 4px;
+                color: #525252;
+                background: #ffffff;
+                border-radius: 7px;
                 position: relative;
-                width: 200px; }
+                width: 28%;
+                margin: 0 5px 0 5px;
+                box-shadow: 1px 1px 1px 0 #00000040; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper:before {
                   content: '\f056';
                   font-family: FontAwesome;
@@ -352,7 +342,8 @@
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper:nth-child(2):before {
                   content: '\f234'; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper:nth-child(3):before {
-                  content: '\f0c7'; }
+                  content: '\f0c7';
+                  color: #ffffff; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper input[type='file'] {
                   display: none; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper label {
@@ -365,12 +356,18 @@
                   text-align: center; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper a {
                   display: block;
-                  color: #fff;
+                  color: #525252;
                   text-transform: uppercase;
                   font-weight: bold;
                   font-size: 14px;
                   box-sizing: border-box;
                   text-align: center; }
+                .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper #save-child {
+                  background: #d85088;
+                  width: 100%;
+                  cursor: pointer;
+                  border-radius: 5px;
+                  box-shadow: 1px 1px 1px 0 #0000001a; }
       .content .child-details .detail-content-wrapper .line-parents {
         padding: 10px;
         margin-bottom: 10px;
@@ -519,3 +516,5 @@
                     line-height: 28px; }
           .content .child-details .detail-content-wrapper .line-parents .list-parents .parent-deleted {
             display: none; }
+
+/*# sourceMappingURL=child-detail.css.map */
