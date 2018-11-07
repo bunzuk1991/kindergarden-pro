@@ -29,6 +29,16 @@ class ChildForm(ModelForm):
             if visible.name == 'date_end':
                 visible.field.widget.attrs['class'] = 'input-wrp cl-date-picker'
 
+    def clean(self):
+        super(ChildForm, self).clean()
+
+        if not self.cleaned_data["date_start"]:
+            raise ValidationError("Заповніть дату початку навчання у садочку", code="Field empty", params={"date_start": "FFFFF"})
+            # self.add_error('date_start', "Заповніть дату початку навчання у садочку")
+
+        return self.cleaned_data
+
+
 
 
 class BaseParentFormSet(BaseModelFormSet):

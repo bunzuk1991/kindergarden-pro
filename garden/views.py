@@ -66,8 +66,6 @@ class ChildDetailView(View):
         form = ChildForm(request.POST or None, request.FILES, prefix='child', instance=child_obj)
         formset = ParentFormSet(request.POST, prefix='parent')
 
-        print(form.errors)
-        print(formset.errors)
         if form.is_valid() and formset.is_valid():
             child_new = form.save(commit=False)
 

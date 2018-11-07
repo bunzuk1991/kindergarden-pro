@@ -136,7 +136,6 @@
                             <div class="img-container">
                                 <div class="img-wrapper">
     {#                                            <img src="img/boy.jpg" alt="">#}
-                                {{ form.non_field_errors }}
                                     {% if image %}
                                         <img src="{{ image }}" alt="#">
                                     {% else %}
@@ -146,6 +145,7 @@
                             </div>
                             <div class="personal-info-container">
                                 <div class="pic-name">
+                                    {{ form.non_field_errors }}
                                     <div class="input-group">
                                         <span class="label-wrp label-req" data-img="\f000">ПІБ</span>
                                         {{ form.fullname }}
