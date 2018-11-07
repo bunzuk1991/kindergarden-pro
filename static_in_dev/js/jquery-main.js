@@ -218,12 +218,12 @@ function get_ajax_data(json_def, target_element) {
 //     target_item.appendTo($item_ul);
 //
 // }
-
+tabsToggle();
 
 $( document ).ready(function() {
 
     daysBar();
-    tabsToggle();
+    // tabsToggle();
     get_ajax_data('relations', 'select-div');
     $('.cl-date-picker').datepicker();
 
