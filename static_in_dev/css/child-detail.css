@@ -49,6 +49,16 @@
           display: none; }
       .modal .modal-wrapper .modal-content .form-group {
         margin-bottom: 10px; }
+        .modal .modal-wrapper .modal-content .form-group #error_element {
+          margin: 23px 0 0 0;
+          background: #e09494;
+          text-align: right;
+          color: #fff;
+          padding: 0 5px 0 0px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 14px;
+          line-height: 23px; }
         .modal .modal-wrapper .modal-content .form-group label, .modal .modal-wrapper .modal-content .form-group input {
           display: block; }
         .modal .modal-wrapper .modal-content .form-group label {
@@ -223,9 +233,9 @@
         font-weight: normal;
         color: white; }
     .content .child-details .detail-content-wrapper {
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
-      background: #739c639e;
+      background: #739c63c2;
       border-radius: 5px;
       min-width: 680px;
       box-shadow: 3px 4px 2px rgba(0, 0, 0, 0.08);
@@ -428,7 +438,8 @@
             display: flex;
             width: 100%;
             border: 1px solid #ececec;
-            margin-bottom: 3px; }
+            margin-bottom: 3px;
+            height: 126px; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container.hidden {
               display: none; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container div {
@@ -436,9 +447,14 @@
               font-size: 16px;
               box-sizing: border-box; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container .top-line {
-              width: 100%; }
+              width: 100%;
+              height: 50%;
+              display: flex;
+              align-items: center;
+              text-align: center; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container .bottom-line {
               width: 100%;
+              height: 50%;
               display: flex;
               align-items: center;
               border-top: 1px solid #ececec; }
@@ -449,7 +465,10 @@
               width: 20%;
               border-right: 1px solid #ececec; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container:nth-child(3) {
-              width: 40%;
+              width: 20%;
+              border-right: 1px solid #ececec; }
+            .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container:nth-child(4) {
+              width: 20%;
               border-right: 1px solid #ececec; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container:nth-child(5) {
               width: 15%; }
@@ -459,7 +478,7 @@
               overflow: hidden;
               resize: none;
               outline: none;
-              padding: 2px 5px;
+              padding: 20px 5px;
               margin: 0;
               box-sizing: border-box;
               display: block;
@@ -477,11 +496,15 @@
               color: #5a5a5a;
               width: 55%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-type {
-              color: #5a5a5a; }
+              color: #5a5a5a;
+              width: 100%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-phone {
               color: #5a5a5a;
               width: 45%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-work {
+              color: #5a5a5a;
+              height: 100%; }
+            .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-address {
               color: #5a5a5a;
               height: 100%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-posada {

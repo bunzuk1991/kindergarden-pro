@@ -19,6 +19,9 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <p id="error_element"></p>
+                        </div>
+                        <div class="form-group">
                             <label>ПІБ</label>
                             <input name="name" type="text" value="" placeholder="Прізвище, ім’я, по-батькові">
                             <input type="hidden" name="parent_id" value="0">
@@ -255,7 +258,7 @@
                                                     {{ form_.work }}
                                                 </div>
                                             </div>
-                                            <div class="field-container hidden">
+                                            <div class="field-container">
                                                 <div class="lst-address">
     {#                                                <textarea name="parent_work" readonly>Україна, Тернопільська область, м.Тернопіль Приватне підприємство "Укрспецінформ"</textarea>#}
                                                     {{ form_.address }}

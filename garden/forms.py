@@ -17,7 +17,6 @@ class ChildForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ChildForm, self).__init__(*args, **kwargs)
-
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'input-wrp'
             if visible.name == 'relation':
@@ -50,12 +49,19 @@ class BaseParentFormSet(BaseModelFormSet):
         model = Parent
         fields = ['fullname', 'date_of_birth', 'phone', 'relation', 'address', 'work', 'workplace']
         # exclude = ['id']
+    #
+    # def __init__(self, *args, **kwargs):
+    #     super(BaseParentFormSet, self).__init__(*args, **kwargs)
+    #     for form in self.forms:
+    #         print('ddddddd')
+    #         print(form)
+
 
 
 ParentFormSet = inlineformset_factory(
     Children,
     Parent,
-    form=ChildForm,
+    # form=ChildForm,
     fields=['fullname', 'date_of_birth', 'phone', 'relation', 'address', 'work', 'workplace'],
     extra=0,
     formset=BaseParentFormSet,

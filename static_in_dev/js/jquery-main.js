@@ -47,6 +47,7 @@ function clearForm() {
     let form_textarea = form_.find('textarea');
 
     form_textarea.val('');
+    form_.find('#error_element').text('');
 
 
     form_input.each(function (i, elem) {
@@ -271,7 +272,8 @@ $( document ).ready(function() {
             select_option = $('.select-item'),
             total_forms_tag = $('#id_parent-TOTAL_FORMS'),
             total_forms_val = +total_forms_tag.val() + 1,
-            textHtml = '<select name="parent-' + id.replace(/lst-/g, "") + '-relation">';
+            error_element = form.find('#error_element'),
+            textHtml = '<select name="parent-' + id.replace(/lst-/g, "") + '-relation" id=' + '"id_parent-' + id.replace(/lst-/g, "") + '-relation"' + '>';
 
         for (i=0; i<select_option.length; i++) {
            let current_elem = select_option[i];
@@ -294,26 +296,33 @@ $( document ).ready(function() {
             operation_type = form.find('#operation-type').attr('data-type'),
             oper_numb = 0,
             parent_id = form.find('input[name="parent_id"]').val(),
+            valid,
             modal = $('.modal');
 
-        if (operation_type === '1') {
+        valid = (name && date_of_birth && phone && address && work && place);
 
-            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, true);
-            $('.list-parents').append(new_item);
-            total_forms_tag.attr('value', total_forms_val);
-        } else {
-            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, false);
-            let elem = $("#" + id);
-            if (elem.attr('data-operation') === '') {
-                elem.attr('data-operation', 'change')
+        if (valid) {
+            if (operation_type === '1') {
+
+                let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, true);
+                $('.list-parents').append(new_item);
+                total_forms_tag.attr('value', total_forms_val);
+            } else {
+                let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, false);
+                let elem = $("#" + id);
+                if (elem.attr('data-operation') === '') {
+                    elem.attr('data-operation', 'change')
+                }
+                elem.children().remove();
+                elem.append(new_item);
             }
-            elem.children().remove();
-            elem.append(new_item);
+
+            modal.removeClass('opened');
+
+            clearForm();
+        } else {
+            error_element.text('Усі поля обов’язкові для заповнення');
         }
-
-        modal.removeClass('opened');
-
-        clearForm();
 
     });
 
