@@ -43,14 +43,21 @@ class ChildDetailView(View):
             json_def = self.request.GET.get('json_def')
 
         if not json_query:
-            child_slug = kwargs['slug']
-            child_obj = get_object_or_404(Children, slug = child_slug)
-
-            formset = ParentFormSet(queryset=child_obj.parent_set.all(), prefix='parent')
-            self.context['form'] = ChildForm(instance=child_obj, prefix='child')
-            self.context['formset'] = formset
-            self.context['slug'] = child_obj.slug
-            self.context['image'] = child_obj.get_absolute_image_url()
+            if 'slug' in kwargs:
+                child_slug = kwargs['slug']
+                child_obj = get_object_or_404(Children, slug = child_slug)
+                formset = ParentFormSet(queryset=child_obj.parent_set.all(), prefix='parent')
+                self.context['form'] = ChildForm(instance=child_obj, prefix='child')
+                self.context['formset'] = formset
+                self.context['slug'] = child_obj.slug
+                self.context['name'] = child_obj.fullname
+                self.context['image'] = child_obj.get_absolute_image_url()
+            else:
+                formset = ParentFormSet(queryset=Parent.objects.none(), prefix='parent')
+                self.context['form'] = ChildForm(prefix='child')
+                self.context['formset'] = formset
+                self.context['image'] = None
+                self.context['slug'] = None
 
             return render(self.request, self.template_name, self.context)
         else:
@@ -61,9 +68,14 @@ class ChildDetailView(View):
                 return Http404
 
     def post(self, request, *args, **kwargs):
-        child_slug = kwargs['slug']
-        child_obj = get_object_or_404(Children, slug=child_slug)
-        form = ChildForm(request.POST or None, request.FILES, prefix='child', instance=child_obj)
+
+        if 'slug' in kwargs:
+            child_slug = kwargs['slug']
+            child_obj = get_object_or_404(Children, slug=child_slug)
+            form = ChildForm(request.POST or None, request.FILES, prefix='child', instance=child_obj)
+        else:
+            form = ChildForm(request.POST or None, request.FILES, prefix='child')
+
         formset = ParentFormSet(request.POST, prefix='parent')
 
         if form.is_valid() and formset.is_valid():

@@ -76,3 +76,24 @@ ParentFormSet = inlineformset_factory(
         'date_of_birth': DateInput(attrs={"readonly":True})},
     localized_fields=['date_of_birth']
 )
+
+
+class BasePaymentChildGroupFormSet(BaseModelFormSet):
+    class Meta:
+        model = ChildPaymentGroup
+        field = ['child', 'payment_group', 'date_start', 'date_end']
+
+PaymentChildGroupFormSet = inlineformset_factory(
+    Children,
+    ChildPaymentGroup,
+    fields=['payment_group', 'date_start', 'date_end'],
+    extra=0,
+    formset=BasePaymentChildGroupFormSet,
+    can_delete=True,
+    widgets={
+        'payment_group': Select(),
+        'date_start': DateInput(),
+        'date_end': DateInput()
+    },
+    localized_fields=['date_start', 'date_end']
+)

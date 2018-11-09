@@ -162,6 +162,7 @@ function tabsToggle() {
 
 function get_ajax_data(json_def, target_element) {
         let child_slug = $('#child-slug').attr('data-slug');
+        let my_url;
 
         let data = {
             json_query: true,
@@ -170,9 +171,15 @@ function get_ajax_data(json_def, target_element) {
 
         let returned_data = {};
 
+        if (child_slug === 'None') {
+            my_url = '/child/create/'
+        } else {
+            my_url = '/child/edit/' + child_slug + '/'
+        }
+
         $.ajax({
             type: "GET",
-            url: '/child/' + child_slug + '/',
+            url: my_url,
             dataType: 'json',
             data: data,
             success: function (data) {

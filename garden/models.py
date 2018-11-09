@@ -91,6 +91,25 @@ class Parent(models.Model):
         return '%s(%s)' % (self.fullname, self.child.fullname)
 
 
+class PaymentGroup(models.Model):
+    fullname = models.CharField(max_length=120, default='', blank=True)
+    slug = models.SlugField(default='', blank=True)
+
+    def __str__(self):
+        return self.fullname
+
+
+class ChildPaymentGroup(models.Model):
+    child = models.ForeignKey(Children, on_delete=models.CASCADE)
+    payment_group = models.ForeignKey(PaymentGroup, on_delete=models.CASCADE)
+    date_start = models.DateField(auto_now=False)
+    date_end = models.DateField(auto_now=False, blank=True, null=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return '%s:%s' % (self.child.fullname, self.payment_group.fullname)
+
+
 def slug_save(sender, instance, *args, **kwargs):
     if not instance.slug:
         if hasattr(instance, 'name'):
@@ -99,7 +118,7 @@ def slug_save(sender, instance, *args, **kwargs):
             instance.slug = uniqe_slug_generator(instance, instance.fullname, instance.slug)
 
 
-def GroupNameCreate(sender, instance, *args, **kwargs):
+def group_name_create(sender, instance, *args, **kwargs):
     if not instance.name:
         instance.name = '%s (%s/%s)' % (instance.gardengroup.name, instance.yearin.year, instance.yearout.year)
         print(dir(instance.yearin))
@@ -107,7 +126,8 @@ def GroupNameCreate(sender, instance, *args, **kwargs):
 
 pre_save.connect(slug_save, sender=Organisation)
 pre_save.connect(slug_save, sender=GardenGroup)
-pre_save.connect(GroupNameCreate, sender=Group)
+pre_save.connect(group_name_create, sender=Group)
 pre_save.connect(slug_save, sender=Group)
 pre_save.connect(slug_save, sender=Children)
 pre_save.connect(slug_save, sender=Relation)
+pre_save.connect(slug_save, sender=PaymentGroup)
