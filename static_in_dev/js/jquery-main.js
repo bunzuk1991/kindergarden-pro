@@ -233,7 +233,17 @@ $( document ).ready(function() {
     daysBar();
     // tabsToggle();
     get_ajax_data('relations', 'select-div');
-    $('.cl-date-picker').datepicker();
+    $('.cl-date-picker').datepicker(
+        {
+            monthNames: [ "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"],
+            dayNames:   [ "Неділя", "Понеділок", "Вівторок", "Середа", "Чертвер", "П’ятниця", "Субота"],
+            dayNamesMin: [ "Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
+            dayNamesShort: [ "Нед", "Пон", "Вів", "Сер", "Чет", "П’я", "Суб" ],
+            dateFormat: "dd.mm.yy",
+            firstDay: 1
+
+        }
+    );
 
     $(".birth-wrapper").birthdaypicker(options={"wrapper":"birth-wrapper"});
 

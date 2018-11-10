@@ -47,15 +47,20 @@ class ChildDetailView(View):
                 child_slug = kwargs['slug']
                 child_obj = get_object_or_404(Children, slug = child_slug)
                 formset = ParentFormSet(queryset=child_obj.parent_set.all(), prefix='parent')
+                pay_formset = PaymentChildGroupFormSet(queryset=child_obj.childpaymentgroup_set.all(), prefix='paygroup')
                 self.context['form'] = ChildForm(instance=child_obj, prefix='child')
                 self.context['formset'] = formset
+                self.context['pay_formset'] = pay_formset
                 self.context['slug'] = child_obj.slug
                 self.context['name'] = child_obj.fullname
                 self.context['image'] = child_obj.get_absolute_image_url()
             else:
                 formset = ParentFormSet(queryset=Parent.objects.none(), prefix='parent')
+                pay_formset = PaymentChildGroupFormSet(queryset=ChildPaymentGroup.objects.none(),
+                                                       prefix='paygroup')
                 self.context['form'] = ChildForm(prefix='child')
                 self.context['formset'] = formset
+                self.context['pay_formset'] = pay_formset
                 self.context['image'] = None
                 self.context['slug'] = None
 

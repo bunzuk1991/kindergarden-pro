@@ -47,6 +47,7 @@ function clearForm() {
     let form_textarea = form_.find('textarea');
 
     form_textarea.val('');
+    form_.find('#error_element').text('');
 
 
     form_input.each(function (i, elem) {
@@ -161,6 +162,7 @@ function tabsToggle() {
 
 function get_ajax_data(json_def, target_element) {
         let child_slug = $('#child-slug').attr('data-slug');
+        let my_url;
 
         let data = {
             json_query: true,
@@ -169,9 +171,15 @@ function get_ajax_data(json_def, target_element) {
 
         let returned_data = {};
 
+        if (child_slug === 'None') {
+            my_url = '/child/create/'
+        } else {
+            my_url = '/child/edit/' + child_slug + '/'
+        }
+
         $.ajax({
             type: "GET",
-            url: '/child/' + child_slug + '/',
+            url: my_url,
             dataType: 'json',
             data: data,
             success: function (data) {
@@ -218,12 +226,12 @@ function get_ajax_data(json_def, target_element) {
 //     target_item.appendTo($item_ul);
 //
 // }
-
+tabsToggle();
 
 $( document ).ready(function() {
 
     daysBar();
-    tabsToggle();
+    // tabsToggle();
     get_ajax_data('relations', 'select-div');
     $('.cl-date-picker').datepicker();
 
@@ -245,7 +253,7 @@ $( document ).ready(function() {
         let last_id = 0;
 
         if (last_element.length === 0) {
-           last_id = 1;
+           last_id = 0;
         } else {
             last_id = +last_element.attr('id').replace(/lst-/g, "");
             last_id += 1;
@@ -271,7 +279,8 @@ $( document ).ready(function() {
             select_option = $('.select-item'),
             total_forms_tag = $('#id_parent-TOTAL_FORMS'),
             total_forms_val = +total_forms_tag.val() + 1,
-            textHtml = '<select name="parent-' + id.replace(/lst-/g, "") + '-relation">';
+            error_element = form.find('#error_element'),
+            textHtml = '<select name="parent-' + id.replace(/lst-/g, "") + '-relation" id=' + '"id_parent-' + id.replace(/lst-/g, "") + '-relation"' + '>';
 
         for (i=0; i<select_option.length; i++) {
            let current_elem = select_option[i];
@@ -294,26 +303,33 @@ $( document ).ready(function() {
             operation_type = form.find('#operation-type').attr('data-type'),
             oper_numb = 0,
             parent_id = form.find('input[name="parent_id"]').val(),
+            valid,
             modal = $('.modal');
 
-        if (operation_type === '1') {
+        valid = (name && date_of_birth && phone && address && work && place);
 
-            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, true);
-            $('.list-parents').append(new_item);
-            total_forms_tag.attr('value', total_forms_val);
-        } else {
-            let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, false);
-            let elem = $("#" + id);
-            if (elem.attr('data-operation') === '') {
-                elem.attr('data-operation', 'change')
+        if (valid) {
+            if (operation_type === '1') {
+
+                let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, true);
+                $('.list-parents').append(new_item);
+                total_forms_tag.attr('value', total_forms_val);
+            } else {
+                let new_item = returnParentHtml(id, name, date_of_birth, phone, work, place, textHtml, address, parent_id, false);
+                let elem = $("#" + id);
+                if (elem.attr('data-operation') === '') {
+                    elem.attr('data-operation', 'change')
+                }
+                elem.children().remove();
+                elem.append(new_item);
             }
-            elem.children().remove();
-            elem.append(new_item);
+
+            modal.removeClass('opened');
+
+            clearForm();
+        } else {
+            error_element.text('Усі поля обов’язкові для заповнення');
         }
-
-        modal.removeClass('opened');
-
-        clearForm();
 
     });
 
@@ -379,11 +395,12 @@ $( document ).ready(function() {
         let current_element = $(this).closest('.lst-parent'),
             total_forms_tag = $('#id_parent-TOTAL_FORMS'),
             total_forms_val = +total_forms_tag.val() - 1;
-        total_forms_tag.val(total_forms_val);
+        if (current_element.attr("data-operation") === "added") {
+            total_forms_tag.val(total_forms_val);
+        }
         current_element.find('input[id$=DELETE]').prop('checked', true);
         current_element.addClass('parent-deleted');
         current_element.attr('data-delete', 'true');
-
     });
 
     $('.button-wrapper').on('change', '#id_child-image', function (e) {

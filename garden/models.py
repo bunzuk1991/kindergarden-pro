@@ -87,6 +87,7 @@ class Parent(models.Model):
     with_child = models.BooleanField(default=True)
     relation = models.ForeignKey(Relation, on_delete=models.CASCADE, blank=True, null=True)
 
+
     def __str__(self):
         return '%s(%s)' % (self.fullname, self.child.fullname)
 
@@ -104,7 +105,7 @@ class ChildPaymentGroup(models.Model):
     payment_group = models.ForeignKey(PaymentGroup, on_delete=models.CASCADE)
     date_start = models.DateField(auto_now=False)
     date_end = models.DateField(auto_now=False, blank=True, null=True)
-    active = models.BooleanField(default=True)
+    enable = models.BooleanField(default=True)
 
     def __str__(self):
         return '%s:%s' % (self.child.fullname, self.payment_group.fullname)

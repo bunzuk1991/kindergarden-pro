@@ -1,6 +1,7 @@
-from django.forms import ModelForm, DateInput, SelectDateWidget, TextInput, Textarea, FileInput, Select, Form, DateField, ClearableFileInput, ValidationError, CharField
+from django.forms import ModelForm, DateInput, SelectDateWidget, TextInput, Textarea, FileInput, Select, Form, DateField, ClearableFileInput, ValidationError, CharField, CheckboxInput
 from django.forms.models import inlineformset_factory, modelformset_factory, BaseModelFormSet
 from .models import *
+from django.utils.timezone import now
 
 
 class ChildForm(ModelForm):
@@ -8,7 +9,7 @@ class ChildForm(ModelForm):
         model = Children
         fields = ['fullname', 'slug', 'date_of_birth', 'growth', 'image', 'weight', 'date_start', 'date_end', 'address', 'actual_group']
         widgets = {
-            'date_of_birth': SelectDateWidget(),
+            'date_of_birth': SelectDateWidget(years=range(2000, now().year + 1)),
             'address': Textarea(),
             'image': FileInput(),
             'actual_group': Select(),
@@ -81,19 +82,20 @@ ParentFormSet = inlineformset_factory(
 class BasePaymentChildGroupFormSet(BaseModelFormSet):
     class Meta:
         model = ChildPaymentGroup
-        field = ['child', 'payment_group', 'date_start', 'date_end']
+        field = ['child', 'payment_group', 'date_start', 'date_end', 'enable']
 
 PaymentChildGroupFormSet = inlineformset_factory(
     Children,
     ChildPaymentGroup,
-    fields=['payment_group', 'date_start', 'date_end'],
+    fields=['payment_group', 'date_start', 'date_end', 'enable'],
     extra=0,
     formset=BasePaymentChildGroupFormSet,
     can_delete=True,
     widgets={
         'payment_group': Select(),
-        'date_start': DateInput(),
-        'date_end': DateInput()
+        'date_start': DateInput(attrs={"class": "cl-date-picker"}),
+        'date_end': DateInput(attrs={"class": "cl-date-picker"}),
+        'enable': CheckboxInput(attrs={'onclick':"return false;"})
     },
     localized_fields=['date_start', 'date_end']
 )

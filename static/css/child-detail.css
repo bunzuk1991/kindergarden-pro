@@ -49,6 +49,16 @@
           display: none; }
       .modal .modal-wrapper .modal-content .form-group {
         margin-bottom: 10px; }
+        .modal .modal-wrapper .modal-content .form-group #error_element {
+          margin: 23px 0 0 0;
+          background: #e09494;
+          text-align: right;
+          color: #fff;
+          padding: 0 5px 0 0px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 14px;
+          line-height: 23px; }
         .modal .modal-wrapper .modal-content .form-group label, .modal .modal-wrapper .modal-content .form-group input {
           display: block; }
         .modal .modal-wrapper .modal-content .form-group label {
@@ -201,9 +211,9 @@
         margin-left: 5px; }
     .content .child-details .label-wrp {
       padding-left: 5px;
-      font-size: 15px;
+      font-size: 17px;
       display: block;
-      background: #6d6d6d;
+      background: #8c8c8c;
       color: #ffffff;
       height: 26px;
       line-height: 26px;
@@ -211,7 +221,6 @@
       position: relative;
       box-sizing: border-box; }
       .content .child-details .label-wrp:after {
-        content: '';
         font-family: FontAwesome;
         position: absolute;
         display: block;
@@ -223,12 +232,10 @@
         text-align: center;
         font-weight: normal;
         color: white; }
-    .content .child-details .label-req:after {
-      content: '\f046'; }
     .content .child-details .detail-content-wrapper {
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
-      background: #739c639e;
+      background: #739c63c2;
       border-radius: 5px;
       min-width: 680px;
       box-shadow: 3px 4px 2px rgba(0, 0, 0, 0.08);
@@ -289,7 +296,7 @@
               .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .nonfield li {
                 padding: 5px 0 5px 20px;
                 margin-bottom: 5px;
-                background: #ff7eb4;
+                background: #f9c7c7;
                 color: #560707;
                 text-transform: uppercase;
                 font-size: 12px;
@@ -307,6 +314,12 @@
               display: flex; }
               .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group select {
                 padding-left: 5px; }
+              .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .input-group .non-resize-text-area {
+                resize: none;
+                height: 52px;
+                width: calc(100% - 150px);
+                padding: 0 0 0 10px;
+                box-sizing: border-box; }
             .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands {
               display: flex;
               align-items: center;
@@ -326,7 +339,7 @@
                 position: relative;
                 width: 28%;
                 margin: 0 5px 0 5px;
-                box-shadow: 1px 1px 1px 0 #00000040; }
+                box-shadow: 1px 5px 1px 0 #00000040; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper:before {
                   content: '\f056';
                   font-family: FontAwesome;
@@ -348,44 +361,47 @@
                   display: none; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper label {
                   display: block;
+                  padding: 8px 0 8px 10px;
                   text-transform: uppercase;
                   font-weight: bold;
                   font-size: 14px;
                   cursor: pointer;
                   box-sizing: border-box;
                   text-align: center; }
-                .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper a {
+                .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper a, .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper button {
                   display: block;
                   color: #525252;
+                  padding: 8px 0 8px 10px;
                   text-transform: uppercase;
                   font-weight: bold;
                   font-size: 14px;
                   box-sizing: border-box;
-                  text-align: center; }
+                  text-align: center;
+                  font-family: 'PT Sans Narrow', sans-serif; }
                 .content .child-details .detail-content-wrapper .line-img-personal-info .personal-info-container .pic-name .pic-commands .button-wrapper #save-child {
                   background: #d85088;
+                  border: none;
                   width: 100%;
                   cursor: pointer;
                   border-radius: 5px;
-                  box-shadow: 1px 1px 1px 0 #0000001a; }
+                  box-shadow: 1px 1px 1px 0 #0000001a;
+                  color: #ffffff; }
       .content .child-details .detail-content-wrapper .line-parents {
         padding: 10px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        margin-right: 10px;
-        margin-left: 30px;
+        margin: 10px 10px 10px 30px;
         background: #ffffff;
         min-height: 110px;
         box-shadow: 2px 2px 2px #909090; }
         .content .child-details .detail-content-wrapper .line-parents .tabs-content {
           padding: 15px 10px;
-          box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.3), inset 1px 0 1px 0 rgba(0, 0, 0, 0.12); }
+          box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.3), inset 1px 0 1px 0 rgba(0, 0, 0, 0.12);
+          min-height: 200px; }
         .content .child-details .detail-content-wrapper .line-parents .tabs-titles ul {
           display: flex; }
           .content .child-details .detail-content-wrapper .line-parents .tabs-titles ul li {
-            padding: 16px 10px;
+            padding: 9px 0;
             margin-right: 10px;
-            background: #79799c;
+            background: #989696;
             width: 200px;
             font-size: 16px;
             text-transform: uppercase;
@@ -422,7 +438,8 @@
             display: flex;
             width: 100%;
             border: 1px solid #ececec;
-            margin-bottom: 3px; }
+            margin-bottom: 3px;
+            height: 126px; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container.hidden {
               display: none; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container div {
@@ -430,9 +447,14 @@
               font-size: 16px;
               box-sizing: border-box; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container .top-line {
-              width: 100%; }
+              width: 100%;
+              height: 50%;
+              display: flex;
+              align-items: center;
+              text-align: center; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container .bottom-line {
               width: 100%;
+              height: 50%;
               display: flex;
               align-items: center;
               border-top: 1px solid #ececec; }
@@ -443,7 +465,10 @@
               width: 20%;
               border-right: 1px solid #ececec; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container:nth-child(3) {
-              width: 40%;
+              width: 20%;
+              border-right: 1px solid #ececec; }
+            .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container:nth-child(4) {
+              width: 20%;
               border-right: 1px solid #ececec; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container:nth-child(5) {
               width: 15%; }
@@ -453,7 +478,7 @@
               overflow: hidden;
               resize: none;
               outline: none;
-              padding: 2px 5px;
+              padding: 20px 5px;
               margin: 0;
               box-sizing: border-box;
               display: block;
@@ -471,11 +496,15 @@
               color: #5a5a5a;
               width: 55%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-type {
-              color: #5a5a5a; }
+              color: #5a5a5a;
+              width: 100%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-phone {
               color: #5a5a5a;
               width: 45%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-work {
+              color: #5a5a5a;
+              height: 100%; }
+            .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-address {
               color: #5a5a5a;
               height: 100%; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .lst-posada {
@@ -516,5 +545,27 @@
                     line-height: 28px; }
           .content .child-details .detail-content-wrapper .line-parents .list-parents .parent-deleted {
             display: none; }
+      .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem {
+        display: flex;
+        width: 90%;
+        margin: 0 auto;
+        border: 1px solid #000;
+        box-sizing: border-box; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem:nth-child(1) {
+          padding: 60px; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem > div {
+          padding: 5px;
+          border-right: 1px solid #000; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(1) {
+          width: 10%;
+          text-align: center; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(2) {
+          width: 25%; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(3) {
+          width: 25%; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(4) {
+          width: 25%; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(5) {
+          width: 15%; }
 
 /*# sourceMappingURL=child-detail.css.map */

@@ -280,7 +280,51 @@
                                     </ul>
                                 </div>
                                 <div class="tab">
-                                    <h3>Друга вкладка</h3>
+                                    <ul class="pay-group-list">
+                                        {{ pay_formset.management_form }}
+                                        {% for form_pay in pay_formset %}
+                                        {{ form_pay.non_field_errors }}
+                                        <li class="pay-group-elem pay-group-title">
+                                            <div class="pay-account">
+                                                <span>Порядок</span>
+                                            </div>
+                                            <div class="pay-group">
+                                                <span>Відношення до тарифу</span>
+                                            </div>
+                                            <div class="pay-start">
+                                                <span>Початок</span>
+                                            </div>
+                                            <div class="pay-end">
+                                                <span>Закінчення</span>
+                                            </div>
+                                            <div class="pay-status">
+                                                <span>Активність</span>
+                                            </div>
+                                        </li>
+                                        <li class="pay-group-elem">
+                                            <div class="pay-account">
+                                                {{ form_.id }}
+                                                <div class="account-wrapper">
+                                                   {{ forloop.counter }}
+                                                </div>
+                                            </div>
+                                            <div class="pay-group">
+                                                {{ form_pay.payment_group }}
+                                            </div>
+                                            <div class="pay-start">
+                                                {{ form_pay.date_start }}
+                                            </div>
+                                            <div class="pay-end">
+                                                {{ form_pay.date_end }}
+                                            </div>
+                                            <div class="pay-status">
+                                                {{ form_pay.enable }}
+                                            </div>
+                                            {{ form_.DELETE }}
+                                        </li>
+
+                                        {% endfor %}
+                                    </ul>
                                 </div>
                                 <div class="tab">
                                     <h3>Третя вкладка</h3>

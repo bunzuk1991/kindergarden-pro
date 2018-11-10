@@ -545,5 +545,52 @@
                     line-height: 28px; }
           .content .child-details .detail-content-wrapper .line-parents .list-parents .parent-deleted {
             display: none; }
+      .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem {
+        display: flex;
+        width: 90%;
+        margin: 0 auto;
+        border: 1px solid #c5c5c5;
+        box-sizing: border-box; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem:nth-child(6) {
+          border-top: none; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem > div {
+          padding: 14px;
+          border-right: 1px solid #c5c5c5; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(1) {
+          width: 7%;
+          text-align: center; }
+          .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(1) .account-wrapper {
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            background: #57bf7a;
+            line-height: 33px;
+            margin: 0 auto;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(2) {
+          width: 20%; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(3) {
+          width: 20%; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(4) {
+          width: 20%; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem div:nth-child(5) {
+          width: 7%; }
+        .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem select, .content .child-details .detail-content-wrapper .pay-group-list .pay-group-elem input {
+          margin: 0;
+          outline: none;
+          border: 2px solid #dedede;
+          box-sizing: border-box;
+          font-size: 15px;
+          padding: 5px 0 5px 10px;
+          width: 100%; }
+      .content .child-details .detail-content-wrapper .pay-group-list .pay-group-title {
+        background: #5e5e5e;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 14px; }
 
 /*# sourceMappingURL=child-detail.css.map */

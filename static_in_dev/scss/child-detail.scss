@@ -243,52 +243,6 @@
         color: #585858;
       }
 
-      //input[type='text'] {
-      //  min-width: 300px;
-      //}
-      //.pic-commands {
-      //  display: flex;
-      //  align-items: center;
-      //  justify-content: space-around;
-      //  margin: 20px 0;
-      //
-      //  .button-wrapper {
-      //    color: #fff;
-      //    background: #79799c;
-      //    border-radius: 4px;
-      //
-      //    input[type='file'] {
-      //      display: none;
-      //    }
-      //
-      //
-      //    label {
-      //      display: block;
-      //      padding: 8px 0 8px 10px;
-      //      text-transform: uppercase;
-      //      font-weight: bold;
-      //      font-size: 14px;
-      //    }
-      //
-      //    a, button {
-      //      display: block;
-      //      padding: 8px 0 8px 10px;
-      //      color: #fff;
-      //      text-transform: uppercase;
-      //      font-weight: bold;
-      //      font-size: 14px;
-      //      border: none;
-      //      font-family: 'PT Sans Narrow', sans-serif;
-      //      font-style: normal;
-      //    }
-      //  }
-      //  #save-child {
-      //    background: #d85088;
-      //    width: 100%;
-      //    cursor: pointer;
-      //  }
-      //}
-
       .input-wrp {
         outline: none;
         font-size: 14px;
@@ -803,6 +757,73 @@
 
           }
 
+        .pay-group-list {
+
+          .pay-group-elem {
+            display: flex;
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid #c5c5c5;
+            box-sizing: border-box;
+
+            &:nth-child(6) {
+              border-top: none;
+            }
+
+            > div {
+              padding: 14px;
+              border-right: 1px solid #c5c5c5;
+            }
+
+            div:nth-child(1) {
+              width: 7%;
+              text-align: center;
+
+              .account-wrapper {
+                  width: 33px;
+                  height: 33px;
+                  border-radius: 50%;
+                  background: #57bf7a;
+                  line-height: 33px;
+                  margin: 0 auto;
+                  color: #fff;
+                  font-size: 16px;
+                  font-weight: bold;
+              }
+            }
+            div:nth-child(2) {
+              width: 20%;
+            }
+            div:nth-child(3) {
+              width: 20%;
+            }
+            div:nth-child(4) {
+              width: 20%;
+            }
+            div:nth-child(5) {
+              width: 7%;
+            }
+
+            select, input {
+              margin: 0;
+              outline: none;
+              border: 2px solid #dedede;
+              box-sizing: border-box;
+              font-size: 15px;
+              padding: 5px 0 5px 10px;
+              width: 100%;
+            }
+          }
+
+          .pay-group-title {
+            background: #5e5e5e;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 14px;
+          }
+        }
       }
     }
 }
