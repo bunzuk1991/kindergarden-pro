@@ -8,7 +8,7 @@ class DocumentItemInline(admin.TabularInline):
 
 
 class DocumentAdmin(admin.ModelAdmin):
-    list_display = ['_all_']
+    list_display = ('doc_type', 'create_date', 'posted', 'update_date', 'owner', 'total_sum')
     inlines = [DocumentItemInline]
 
     class Meta:
@@ -19,5 +19,6 @@ admin.site.register(Document, DocumentAdmin)
 admin.site.register(ChildPaymentGroup)
 admin.site.register(PaymentGroup)
 admin.site.register(Service)
+admin.site.register(RegisterBalances)
 
 
