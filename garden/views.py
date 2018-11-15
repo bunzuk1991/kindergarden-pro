@@ -6,6 +6,7 @@ from .forms import *
 from .mixins import UniversalMixins
 from .custom import *
 from django.utils.timezone import now
+from accounting.models import ChildPaymentGroup
 
 
 class ChildrenListView(UniversalMixins, ListView):

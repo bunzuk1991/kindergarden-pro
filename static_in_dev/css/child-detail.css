@@ -86,10 +86,10 @@
             outline: none;
             padding: 5px 10px; }
           .modal .modal-wrapper .modal-content .form-group .birth-wrapper select:nth-child(1) {
-            width: 20%;
+            width: 15%;
             margin-right: 5px; }
           .modal .modal-wrapper .modal-content .form-group .birth-wrapper select:nth-child(2) {
-            width: 50%;
+            width: 55%;
             margin-right: 5px; }
           .modal .modal-wrapper .modal-content .form-group .birth-wrapper select:nth-child(3) {
             width: 30%; }
@@ -401,11 +401,11 @@
           .content .child-details .detail-content-wrapper .line-parents .tabs-titles ul li {
             padding: 9px 0;
             margin-right: 10px;
-            background: #989696;
+            background: #f1f1f1;
             width: 200px;
             font-size: 16px;
             text-transform: uppercase;
-            color: #ffffff;
+            color: #5b5b5b;
             font-weight: bold;
             text-align: center;
             box-shadow: 2px 0 1px rgba(0, 0, 0, 0.2);
@@ -423,12 +423,10 @@
               transition: .3s;
               z-index: -1; }
             .content .child-details .detail-content-wrapper .line-parents .tabs-titles ul li:hover:after {
-              width: 50%;
-              background: #767676; }
+              width: 50%; }
           .content .child-details .detail-content-wrapper .line-parents .tabs-titles ul .active-tab {
-            background: #d85088; }
-          .content .child-details .detail-content-wrapper .line-parents .tabs-titles ul .active-tab:hover:after {
-            background: #79799c; }
+            background: #d85088;
+            color: #ffffff; }
         .content .child-details .detail-content-wrapper .line-parents .list-parents {
           display: flex;
           flex-flow: row;
@@ -440,6 +438,35 @@
             border: 1px solid #ececec;
             margin-bottom: 3px;
             height: 126px; }
+            .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-title {
+              height: 40px;
+              margin-bottom: 0;
+              background: #5e5e5e;
+              color: #ffffff;
+              text-transform: uppercase;
+              font-weight: bold;
+              letter-spacing: 1px;
+              font-size: 14px; }
+              .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-title p {
+                margin: 0;
+                line-height: 40px;
+                text-align: center; }
+              .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-title .field-container:nth-child(1) {
+                width: 25%;
+                border-right: 1px solid #9d9c9c; }
+              .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-title .field-container:nth-child(2) {
+                width: 20%;
+                border-right: 1px solid #9d9c9c; }
+              .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-title .field-container:nth-child(3) {
+                width: 20%;
+                border-right: 1px solid #9d9c9c; }
+              .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-title .field-container:nth-child(4) {
+                width: 20%;
+                border-right: 1px solid #9d9c9c; }
+              .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-title .field-container:nth-child(5) {
+                width: 15%; }
+            .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent#lst-0 {
+              border-top: none; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container.hidden {
               display: none; }
             .content .child-details .detail-content-wrapper .line-parents .list-parents .lst-parent .field-container div {
@@ -591,6 +618,8 @@
         text-transform: uppercase;
         font-weight: bold;
         letter-spacing: 1px;
-        font-size: 14px; }
+        font-size: 14px;
+        height: 40px;
+        line-height: 15px; }
 
 /*# sourceMappingURL=child-detail.css.map */

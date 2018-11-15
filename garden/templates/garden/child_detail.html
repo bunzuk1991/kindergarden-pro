@@ -221,6 +221,23 @@
 
                                     <ul class="list-parents">
                                         {{ formset.management_form }}
+                                        <li class="lst-parent" id="lst-title">
+                                            <div class="field-container">
+                                                <p>П.І.Б / Дата народження/ Телефон</p>
+                                            </div>
+                                            <div class="field-container">
+                                                <p>Відношення / посада</p>
+                                            </div>
+                                            <div class="field-container">
+                                                <p>Місце роботи</p>
+                                            </div>
+                                            <div class="field-container">
+                                                <p>Адреса</p>
+                                            </div>
+                                            <div class="field-container">
+                                                <p></p>
+                                            </div>
+                                        </li>
                                         {% for form_ in formset %}
                                         {{ form_.non_field_errors }}
                                             <li class="lst-parent" id="lst-{{ forloop.counter0 }}" data-operation="" data-delete="">
@@ -282,8 +299,6 @@
                                 <div class="tab">
                                     <ul class="pay-group-list">
                                         {{ pay_formset.management_form }}
-                                        {% for form_pay in pay_formset %}
-                                        {{ form_pay.non_field_errors }}
                                         <li class="pay-group-elem pay-group-title">
                                             <div class="pay-account">
                                                 <span>Порядок</span>
@@ -301,6 +316,8 @@
                                                 <span>Активність</span>
                                             </div>
                                         </li>
+                                        {% for form_pay in pay_formset %}
+                                        {{ form_pay.non_field_errors }}
                                         <li class="pay-group-elem">
                                             <div class="pay-account">
                                                 {{ form_.id }}
