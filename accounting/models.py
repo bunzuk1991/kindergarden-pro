@@ -1,17 +1,21 @@
 from django.db import models
 from django.db.models import Sum
 from garden.models import Children
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save, post_delete, pre_delete
 from kindergarden.utils import uniqe_slug_generator, generate_file_name
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
-import uuid, datetime, calendar
+import uuid, datetime, calendar, pytz
 from garden.mixins import get_month_list
+from django.utils import timezone
 
 
 class Service(models.Model):
     name = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
 
 
 class PaymentGroup(models.Model):
@@ -50,9 +54,23 @@ class Document(models.Model):
     posted = models.BooleanField(default=False)
     owner = models.ForeignKey(USER_MODEL, on_delete=models.CASCADE)
     doc_type = models.CharField(max_length=20, choices=DOC_TYPE_CHOICES)
-    total_sum = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
+    total_sum = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now_add=True)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None, *args, **kwargs):
+        if self.id:
+            old_document = Document.objects.get(id=self.id)
+            if old_document.posted != self.posted:
+                super(Document, self).save(*args, **kwargs)
+
+                for doc_item in self.documentitem_set.all():
+                    RegisterBalances.count_balances(doc_item.child, doc_item.service, doc_item.operation_date)
+            else:
+                super(Document, self).save(*args, **kwargs)
+        else:
+            super(Document, self).save(*args, **kwargs)
 
     def __str__(self):
         date_format = '%s.%s.%s' % (self.update_date.day, self.update_date.month, self.update_date.year)
@@ -68,17 +86,30 @@ class DocumentItem(models.Model):
     sum = models.DecimalField(max_digits=10, decimal_places=2)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None, *args, **kwargs):
+        super(DocumentItem, self).save(*args, **kwargs)
+        print(self)
+        RegisterBalances.count_balances(self.child, self.service, self.operation_date)
 
-@receiver(post_save, sender=DocumentItem)
-def change_total_sum(sender, instance, *args, **kwargs):
-    owner = instance.owner_document
-    total_sum = DocumentItem.objects.exclude(sum=None).aggregate(total=Sum('sum'))['total']
-    owner.total_sum = total_sum
-    owner.save()
+    def delete(self, using=None, keep_parents=False, *args, **kwargs):
+        super(DocumentItem, self).delete(*args, **kwargs)
+        RegisterBalances.count_balances(self.child, self.service, self.operation_date)
+
+
+class VisitingDocument(Document):
+    operation_date = models.DateField(auto_now_add=False)
+    present_amount = models.PositiveIntegerField(default=0, blank=True)
+    missing_amount = models.PositiveIntegerField(default=0, blank=True)
+    total_amount = models.PositiveIntegerField(default=0, blank=True)
+
+
+class VisitingItem(DocumentItem):
+    present = models.BooleanField(default=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
 
 class RegisterBalances(models.Model):
-    owner_document = models.ForeignKey(Document, on_delete=models.CASCADE)
     month = models.DateField(auto_now_add=False)
     child = models.ForeignKey(Children, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
@@ -87,7 +118,7 @@ class RegisterBalances(models.Model):
     balance_end = models.DecimalField(max_digits=10, decimal_places=2)
 
     @staticmethod
-    def count_balances(child, date_start):
+    def count_balances(child, service, date_start, owner_exclude = None):
         list_of_month = get_month_list(date_start, datetime.date.today())
         start_month = datetime.date(date_start.year, date_start.month, 1)
         first_item = RegisterBalances.objects.filter(child=child, month=start_month)
@@ -98,52 +129,129 @@ class RegisterBalances(models.Model):
         else:
             start_balances = first_item[0].balance_start
 
-        balance_list[start_month.strftime("%Y %m")] = [start_balances, 0, 0]
+        balance_list[start_month.strftime("%Y %m")] = [start_balances, 0, 0, start_month]
         ind = -1
 
         for item_ in list_of_month:
             ind += 1
             month_end = datetime.date(item_.year, item_.month, calendar.monthrange(item_.year, item_.month)[1])
-            turnover_minus = DocumentItem.objects.filter(
-                child=child,
-                operation_date__range=(item_, month_end),
-                owner_document__posted=True,
-                owner_document__doc_type=Document.CH_OPLATA
-            ).aggregate(opl=Sum('sum'))['opl']
+            if owner_exclude is None:
+                turnover_minus = DocumentItem.objects.filter(
+                    child=child,
+                    service=service,
+                    operation_date__range=(item_, month_end),
+                    owner_document__posted=True,
+                    owner_document__doc_type=Document.CH_OPLATA
+                ).aggregate(opl=Sum('sum'))['opl']
+            else:
+                turnover_minus = DocumentItem.objects.exclude(owner_document=owner_exclude).filter(
+                    child=child,
+                    service=service,
+                    operation_date__range=(item_, month_end),
+                    owner_document__posted=True,
+                    owner_document__doc_type=Document.CH_OPLATA
+                ).aggregate(opl=Sum('sum'))['opl']
 
             if turnover_minus is None:
                 turnover_minus = 0
 
-            turnover_plus = DocumentItem.objects.filter(
-                child=child,
-                operation_date__range=(item_, month_end),
-                owner_document__posted=True
+            if owner_exclude is None:
+                turnover_plus = DocumentItem.objects.filter(
+                    child=child,
+                    service=service,
+                    operation_date__range=(item_, month_end),
+                    owner_document__posted=True
+                    ).exclude(
+                    owner_document__doc_type=Document.CH_OPLATA).aggregate(
+                    opl=Sum('sum'))['opl']
+            else:
+                turnover_plus = DocumentItem.objects.exclude(owner_document=owner_exclude).filter(
+                    child=child,
+                    service=service,
+                    operation_date__range=(item_, month_end),
+                    owner_document__posted=True
                 ).exclude(
-                owner_document__doc_type=Document.CH_OPLATA).aggregate(
-                opl=Sum('sum'))['opl']
+                    owner_document__doc_type=Document.CH_OPLATA).aggregate(
+                    opl=Sum('sum'))['opl']
 
             if turnover_plus is None:
                 turnover_plus = 0
 
-
             turnover = turnover_plus - turnover_minus
 
             if item_ == start_month:
-                balance_list[start_month.strftime("%Y %m")] = [start_balances, turnover , start_balances + turnover]
+                balance_list[start_month.strftime("%Y %m")] = [start_balances, turnover , start_balances + turnover, item_]
             else:
                 prev_month = list_of_month[ind-1].strftime("%Y %m")
                 end_balances = balance_list[prev_month][2]
-                balance_list[item_.strftime("%Y %m")] = [end_balances, turnover , end_balances + turnover]
+                balance_list[item_.strftime("%Y %m")] = [end_balances, turnover , end_balances + turnover, item_]
 
-        return balance_list
+        items = RegisterBalances.objects.filter(child=child, service=service, month__gte=start_month)
+        for balance_item in balance_list:
+            values = balance_list[balance_item]
+            elem_balance = items.filter(month=values[3])
+            if elem_balance.count() > 0:
+                for elem in elem_balance:
+                    elem.balance_start = values[0]
+                    elem.turnover = values[1]
+                    elem.balance_end = values[2]
+                    elem.save()
+            else:
+                print('new')
+                new_item = RegisterBalances(
+                    child=child,
+                    service=service,
+                    month=values[3],
+                    balance_start=values[0],
+                    turnover=values[1],
+                    balance_end=values[2]
+                )
+                new_item.save()
 
 
-def slug_save(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        if hasattr(instance, 'name'):
-            instance.slug = uniqe_slug_generator(instance, instance.name, instance.slug)
-        else:
-            instance.slug = uniqe_slug_generator(instance, instance.fullname, instance.slug)
-
-
-pre_save.connect(slug_save, sender=PaymentGroup)
+# @receiver(post_save, sender=Document)
+# def balances_posted(sender, instance, *args, **kwargs):
+#     doc_items = instance.documentitem_set.all()
+#     for doc_item in doc_items:
+#         RegisterBalances.count_balances(doc_item.child, doc_item.service, doc_item.operation_date)
+#
+#
+# @receiver(post_save, sender=VisitingDocument)
+# def balances_posted(sender, instance, *args, **kwargs):
+#     doc = instance.document_ptr
+#     doc_items = VisitingItem.objects.filter(owner_document = doc)
+#
+#     print(doc_items)
+#     for doc_item in doc_items:
+#         RegisterBalances.count_balances(doc_item.child, doc_item.service, doc_item.operation_date)
+#
+#
+# @receiver(pre_delete, sender=Document)
+# def balances_posted1(sender, instance, *args, **kwargs):
+#     doc_items = instance.documentitem_set.all()
+#     print(doc_items)
+#     for doc_item in doc_items:
+#         RegisterBalances.count_balances(doc_item.child, doc_item.service, doc_item.operation_date, instance)
+#
+#
+# @receiver(post_save, sender=DocumentItem)
+# def change_total_sum(sender, instance, *args, **kwargs):
+#     RegisterBalances.count_balances(instance.child, instance.service, instance.operation_date)
+#     owner = instance.owner_document
+#     total_sum = DocumentItem.objects.exclude(sum=None).aggregate(total=Sum('sum'))['total']
+#     owner.total_sum = total_sum
+#     owner.save()
+#
+#
+# @receiver(post_save, sender=VisitingItem)
+# def change_total_sum(sender, instance, *args, **kwargs):
+#     RegisterBalances.count_balances(instance.child, instance.service, instance.operation_date)
+#
+#
+# @receiver(pre_save, sender=PaymentGroup)
+# def slug_save(sender, instance, *args, **kwargs):
+#     if not instance.slug:
+#         if hasattr(instance, 'name'):
+#             instance.slug = uniqe_slug_generator(instance, instance.name, instance.slug)
+#         else:
+#             instance.slug = uniqe_slug_generator(instance, instance.fullname, instance.slug)
