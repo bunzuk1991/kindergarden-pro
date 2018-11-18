@@ -19,13 +19,31 @@ class Service(models.Model):
 
 
 class PaymentGroup(models.Model):
+    PAY_DAY = 'DAY'
+    PAY_MONTH = 'MONTH'
+    PAY_ONCE = 'ONCE'
+
+    PAY_PERIOD = (
+        (PAY_DAY, 'ДЕНЬ'),
+        (PAY_MONTH, 'МІСЯЦЬ'),
+        (PAY_ONCE, 'ОДНОРАЗОВО')
+    )
+
     fullname = models.CharField(max_length=120, default='', blank=True)
     slug = models.SlugField(default='', blank=True)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    period = models.CharField(max_length=20, choices=PAY_PERIOD, default=PAY_DAY, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.fullname
+
+
+class PaymentPrice(models.Model):
+    payment_group = models.ForeignKey(PaymentGroup, on_delete=models.CASCADE)
+    date_start = models.DateField(auto_now_add=False)
+    date_end = models.DateField(auto_now_add=False, blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
 
 class ChildPaymentGroup(models.Model):
@@ -60,7 +78,7 @@ class Document(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, *args, **kwargs):
-        if self.id:
+        if self.id is not None:
             old_document = Document.objects.get(id=self.id)
             if old_document.posted != self.posted:
                 super(Document, self).save(*args, **kwargs)
@@ -118,7 +136,7 @@ class RegisterBalances(models.Model):
     balance_end = models.DecimalField(max_digits=10, decimal_places=2)
 
     @staticmethod
-    def count_balances(child, service, date_start, owner_exclude = None):
+    def count_balances(child, service, date_start, owner_exclude=None):
         list_of_month = get_month_list(date_start, datetime.date.today())
         start_month = datetime.date(date_start.year, date_start.month, 1)
         first_item = RegisterBalances.objects.filter(child=child, month=start_month)
@@ -161,7 +179,7 @@ class RegisterBalances(models.Model):
                     service=service,
                     operation_date__range=(item_, month_end),
                     owner_document__posted=True
-                    ).exclude(
+                ).exclude(
                     owner_document__doc_type=Document.CH_OPLATA).aggregate(
                     opl=Sum('sum'))['opl']
             else:
@@ -180,11 +198,12 @@ class RegisterBalances(models.Model):
             turnover = turnover_plus - turnover_minus
 
             if item_ == start_month:
-                balance_list[start_month.strftime("%Y %m")] = [start_balances, turnover , start_balances + turnover, item_]
+                balance_list[start_month.strftime("%Y %m")] = [start_balances, turnover, start_balances + turnover,
+                                                               item_]
             else:
-                prev_month = list_of_month[ind-1].strftime("%Y %m")
+                prev_month = list_of_month[ind - 1].strftime("%Y %m")
                 end_balances = balance_list[prev_month][2]
-                balance_list[item_.strftime("%Y %m")] = [end_balances, turnover , end_balances + turnover, item_]
+                balance_list[item_.strftime("%Y %m")] = [end_balances, turnover, end_balances + turnover, item_]
 
         items = RegisterBalances.objects.filter(child=child, service=service, month__gte=start_month)
         for balance_item in balance_list:
@@ -207,7 +226,6 @@ class RegisterBalances(models.Model):
                     balance_end=values[2]
                 )
                 new_item.save()
-
 
 # @receiver(post_save, sender=Document)
 # def balances_posted(sender, instance, *args, **kwargs):

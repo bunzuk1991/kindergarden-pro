@@ -41,6 +41,7 @@ admin.site.register(VisitingDocument, VisitingDocumentAdmin)
 admin.site.register(ChildPaymentGroup)
 admin.site.register(PaymentGroup)
 admin.site.register(Service)
+admin.site.register(PaymentPrice)
 admin.site.register(RegisterBalances, RegisterBalanceAdmin)
 
 
