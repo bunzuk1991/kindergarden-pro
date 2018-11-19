@@ -1,13 +1,16 @@
+import calendar
+import datetime
+import uuid
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Sum
-from garden.models import Children
-from django.db.models.signals import pre_save, post_save, post_delete, pre_delete
-from kindergarden.utils import uniqe_slug_generator, generate_file_name
-from django.contrib.auth import get_user_model
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
-import uuid, datetime, calendar, pytz
+
 from garden.mixins import get_month_list
-from django.utils import timezone
+from garden.models import Children
+from kindergarden.utils import uniqe_slug_generator
 
 
 class Service(models.Model):
@@ -110,9 +113,17 @@ class DocumentItem(models.Model):
         print(self)
         RegisterBalances.count_balances(self.child, self.service, self.operation_date)
 
+        owner = self.owner_document
+        owner.total_sum = DocumentItem.objects.exclude(sum=None).aggregate(total=Sum('sum'))['total']
+        owner.save()
+
     def delete(self, using=None, keep_parents=False, *args, **kwargs):
         super(DocumentItem, self).delete(*args, **kwargs)
         RegisterBalances.count_balances(self.child, self.service, self.operation_date)
+
+        owner = self.owner_document
+        owner.total_sum = DocumentItem.objects.exclude(sum=None).aggregate(total=Sum('sum'))['total']
+        owner.save()
 
 
 class VisitingDocument(Document):
@@ -227,49 +238,11 @@ class RegisterBalances(models.Model):
                 )
                 new_item.save()
 
-# @receiver(post_save, sender=Document)
-# def balances_posted(sender, instance, *args, **kwargs):
-#     doc_items = instance.documentitem_set.all()
-#     for doc_item in doc_items:
-#         RegisterBalances.count_balances(doc_item.child, doc_item.service, doc_item.operation_date)
-#
-#
-# @receiver(post_save, sender=VisitingDocument)
-# def balances_posted(sender, instance, *args, **kwargs):
-#     doc = instance.document_ptr
-#     doc_items = VisitingItem.objects.filter(owner_document = doc)
-#
-#     print(doc_items)
-#     for doc_item in doc_items:
-#         RegisterBalances.count_balances(doc_item.child, doc_item.service, doc_item.operation_date)
-#
-#
-# @receiver(pre_delete, sender=Document)
-# def balances_posted1(sender, instance, *args, **kwargs):
-#     doc_items = instance.documentitem_set.all()
-#     print(doc_items)
-#     for doc_item in doc_items:
-#         RegisterBalances.count_balances(doc_item.child, doc_item.service, doc_item.operation_date, instance)
-#
-#
-# @receiver(post_save, sender=DocumentItem)
-# def change_total_sum(sender, instance, *args, **kwargs):
-#     RegisterBalances.count_balances(instance.child, instance.service, instance.operation_date)
-#     owner = instance.owner_document
-#     total_sum = DocumentItem.objects.exclude(sum=None).aggregate(total=Sum('sum'))['total']
-#     owner.total_sum = total_sum
-#     owner.save()
-#
-#
-# @receiver(post_save, sender=VisitingItem)
-# def change_total_sum(sender, instance, *args, **kwargs):
-#     RegisterBalances.count_balances(instance.child, instance.service, instance.operation_date)
-#
-#
-# @receiver(pre_save, sender=PaymentGroup)
-# def slug_save(sender, instance, *args, **kwargs):
-#     if not instance.slug:
-#         if hasattr(instance, 'name'):
-#             instance.slug = uniqe_slug_generator(instance, instance.name, instance.slug)
-#         else:
-#             instance.slug = uniqe_slug_generator(instance, instance.fullname, instance.slug)
+
+@receiver(pre_save, sender=PaymentGroup)
+def slug_save(instance):
+    if not instance.slug:
+        if hasattr(instance, 'name'):
+            instance.slug = uniqe_slug_generator(instance, instance.name, instance.slug)
+        else:
+            instance.slug = uniqe_slug_generator(instance, instance.fullname, instance.slug)
