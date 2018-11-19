@@ -34,7 +34,6 @@ class PaymentGroup(models.Model):
 
     fullname = models.CharField(max_length=120, default='', blank=True)
     slug = models.SlugField(default='', blank=True)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
     period = models.CharField(max_length=20, choices=PAY_PERIOD, default=PAY_DAY, blank=True)
     is_active = models.BooleanField(default=True)
 
@@ -50,7 +49,11 @@ class PaymentPrice(models.Model):
 
 
 class ChildPaymentGroup(models.Model):
+    class Meta:
+        unique_together = ("child", "service", "payment_group", "date_start")
+
     child = models.ForeignKey(Children, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
     payment_group = models.ForeignKey(PaymentGroup, on_delete=models.CASCADE)
     date_start = models.DateField(auto_now=False)
     date_end = models.DateField(auto_now=False, blank=True, null=True)
@@ -240,7 +243,7 @@ class RegisterBalances(models.Model):
 
 
 @receiver(pre_save, sender=PaymentGroup)
-def slug_save(instance):
+def slug_save(sender, instance, *args, **kwargs):
     if not instance.slug:
         if hasattr(instance, 'name'):
             instance.slug = uniqe_slug_generator(instance, instance.name, instance.slug)
